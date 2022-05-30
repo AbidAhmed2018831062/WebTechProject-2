@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react/cjs/react.production.min';
 import style from '../asset/css/profile.module.css';
 import iu from '../asset/images/iu.jpg';
 import Posts from './Posts';

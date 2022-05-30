@@ -1,13 +1,12 @@
-.newpost {
+.login {
   margin-top: 10px;
   margin-left: 25%;
   margin-right: 25%;
-  text-align: center;
 }
 label {
   font-size: 120%;
 }
-input[type="text"],
+input,
 textarea {
   width: 100%;
   padding: 10px 10px;
@@ -18,32 +17,20 @@ textarea {
   padding: 10px;
   color: white;
 }
-select {
-  background-color: black;
-  color: white;
-  width: 100%;
-  padding: 10px;
-  font-size: larger;
-  margin-top: 10px;
+h2 {
+  color: red;
 }
-select option {
-  color: white;
-  font-size: larger;
-  background-color: black;
-}
-hr {
-  margin-bottom: 20px;
-}
-.navLink,
 button {
   padding: 10px 5px;
   width: 20%;
   text-align: center;
   margin-top: 20px;
-  margin-right: 20px;
   background-color: red;
   font-size: 110%;
+  padding-right: 10px;
   font-weight: bold;
   border-radius: 10px;
-  cursor: pointer;
+}
+.navLink {
+  font-size: 110%;
 }
