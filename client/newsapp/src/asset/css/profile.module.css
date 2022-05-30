@@ -1,0 +1,78 @@
+.profile {
+  margin-top: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.pic {
+  border-radius: 50%;
+  width: "30px";
+  height: "50px";
+  display: inline-block;
+  float: left;
+}
+.pro {
+  width: 100%;
+  display: flex;
+}
+.flex1 h2 {
+  display: inline-block;
+  margin-top: 60px;
+  margin-left: 20px;
+  text-align: center;
+}
+.flex1 {
+  width: 50%;
+}
+.flex2 {
+  margin-top: 150px;
+  width: 50%;
+}
+.link {
+  padding: 10px;
+  margin-left: 50%;
+  background-color: red;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.link1 {
+  padding: 10px;
+  margin-left: 10px;
+  background-color: red;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.active {
+  padding: 10px;
+  margin-left: 50%;
+  background-color: grey;
+  border-radius: 10px;
+  text-decoration: none;
+  color: red;
+}
+.active1 {
+  padding: 10px;
+  margin-left: 10px;
+  background-color: grey;
+  border-radius: 10px;
+  text-decoration: none;
+  color: red;
+}
+
+.catpo {
+  display: flex;
+  margin-top: 50px;
+}
+.cat {
+  width: 100%;
+}
+.cat li {
+  list-style-type: none;
+  padding: 10px;
+  font-size: 110%;
+  font-weight: bold;
+}
+.cat h4 {
+  font-size: 130%;
+  font-weight: bolder;
+  color: red;
+}
