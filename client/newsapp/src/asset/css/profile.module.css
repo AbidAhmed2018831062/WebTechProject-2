@@ -68,11 +68,12 @@
 .cat li {
   list-style-type: none;
   padding: 10px;
-  font-size: 110%;
+  font-size: 130%;
   font-weight: bold;
+  cursor: pointer;
 }
 .cat h4 {
-  font-size: 130%;
+  font-size: 200%;
   font-weight: bolder;
   color: red;
 }

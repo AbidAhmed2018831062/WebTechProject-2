@@ -1,6 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import style from '../asset/css/profile.module.css';
+import code1 from '../asset/images/code1.jpg';
+import code2 from '../asset/images/code2.jpg';
 import iu from '../asset/images/iu.jpg';
 import Posts from './Posts';
 function Profile()
@@ -8,7 +10,23 @@ function Profile()
     const category=['All','Sports','Movies','Tv Series','Crime',"Programming"];
     console.log(category);
     let filterPost=[];
-    const {posts,setPosts}=useState([]);
+  //  const {posts,setPosts}=useState([]);
+  const posts=[
+      {
+          img:code1,
+          id:1,
+          title:"Lorem Ispum",
+          desc:"Voluptua rebum stet et vero sed. Labore stet tempor ipsum at dolore aliquyam rebum, eos amet lorem nonumy eos diam. Lorem eos at nonumy et sea invidunt. Ut gubergren ea sadipscing stet eos kasd et. Et et lorem lorem elitr sea sadipscing clita. Nonumy accusam.",
+          category:"Sports"
+      },
+      {
+          img:code2,
+        id:1,
+        title:"Lorem Ispum",
+        desc:"Voluptua rebum stet et vero sed. Labore stet tempor ipsum at dolore aliquyam rebum, eos amet lorem nonumy eos diam. Lorem eos at nonumy et sea invidunt. Ut gubergren ea sadipscing stet eos kasd et. Et et lorem lorem elitr sea sadipscing clita. Nonumy accusam.",
+        category:"Sports"
+    }
+  ]
     const handleCatClick=useCallback((e)=>{
      posts.forEach((post)=>{
          console.log(e)
@@ -22,7 +40,7 @@ function Profile()
         handleCatClick("All");
     },[handleCatClick]);
     const addNewPost=(post1)=>{
-        setPosts((prev)=> [...prev,post1]);
+       // setPosts((prev)=> [...prev,post1]);
     }
 
 return(
@@ -49,7 +67,7 @@ return(
         </ul>
         
     </div>
-     <div className={style.posts}>
+     <div>
          {
            posts.map((element)=>{
               return  <Posts post={element}/>
