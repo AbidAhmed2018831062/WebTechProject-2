@@ -8,3 +8,6 @@ export function returnUserName()
     console.log(global.username+"Abid");
     return global.username;
 }
+let appName="Trendews";
+export { appName };
+

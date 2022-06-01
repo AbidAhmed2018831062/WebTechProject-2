@@ -1,0 +1,28 @@
+.home {
+  margin-top: 10px;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+.profile {
+  width: 100%;
+}
+.profile img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  float: left;
+}
+.button {
+  display: inline-block;
+  background: none;
+  border: 1px solid grey;
+  width: 90%;
+  margin-left: 5px;
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+}

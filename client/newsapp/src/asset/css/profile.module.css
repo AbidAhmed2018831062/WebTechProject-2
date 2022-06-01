@@ -73,7 +73,8 @@
   cursor: pointer;
 }
 .cat h4 {
-  font-size: 200%;
+  font-size: 170%;
   font-weight: bolder;
   color: red;
+  padding: 10px;
 }
