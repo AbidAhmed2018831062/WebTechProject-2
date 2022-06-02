@@ -21,7 +21,7 @@ return(
     <div>
         <img src={right} alt="Successful"></img>
         <h1>{text}. In {showTime()} you will be redirected to the home page.</h1>
-        {time<=0?<Navigate replace to="/profile" />:""};
+        {time<=0?<Navigate replace to="/" />:""};
     </div>
 )
 }

@@ -6,14 +6,17 @@ import './Global';
 import Navigate1 from './Navigate';
 function NewPost()
 {
-    console.log(global.username);
     const [what,setWhat]=React.useState(false);
 const [title,setTitle]=React.useState('');
 const [desc,setDes]=React.useState('');
-const [cat,setCat]=React.useState('React');
+const [cat,setCat]=React.useState('Sports');
 const submit=()=>{
     axios.post("http://localhost:3001/newpost",{
-      title,desc,category:cat,username:global.username,img:code1
+      title,desc,category:cat,img:code1
+    },{
+      headers:{
+        "Authorization":`Bearer ${localStorage.getItem("token")}`
+      }
     }).then(()=>{
      setWhat(true);
    }).catch(err=>
@@ -49,9 +52,13 @@ return(
         <textarea type="text" name="desc" value={desc} onChange={handleChange}></textarea>
         <label htmlFor="cat">Category</label>
         <select name="cat" value={cat} onChange={handleChange}>
-                    <option value="React">React</option>
-                    <option value="Angular">Angular</option>
-                    <option value="Vue">Vue</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Movies">Movies</option>
+                    <option value="Series">Series</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Trending">Trending</option>
+                    <option value="Others">Others</option>
                 </select>
                 <button type='submit' onClick={submit}>Submit</button>
                 </div>}

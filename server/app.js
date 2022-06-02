@@ -18,6 +18,50 @@ database:"newsapp"
 
 }
 ) 
+app.get("/getPosts",(req,res)=>{
+    const sql= "SELECT * FROM posts WhERE username=?";
+   const username=req.query.username;
+    db.query(sql,[username],(err,result)=>{
+        if(err===null)
+        {
+            res.status(200).send(result.reverse());
+        }
+        else
+        res.status(500).send("Server Error"); 
+    })
+});
+app.get("/showsinglepost",(req,res)=>{
+    console.log("Abid");
+
+    const id= req.query.id;
+    console.log(id);
+    const sql= "SELECT * FROM posts WHERE id=?";
+    db.query(sql,[id],(err,result)=>{
+        if(err===null)
+        {
+            console.log(result);
+            res.status(200).send(result);
+        }
+        else{
+            console.log(result);
+        res.status(500).send("Server Error");
+        }
+        
+
+    })
+})
+app.get("/getAllPosts",(req,res)=>{
+    const sql= "SELECT * FROM posts";
+    db.query(sql,(err,result)=>{
+        if(err===null)
+        {
+            res.status(200).send(result.reverse());
+        }
+        else
+        res.status(500).send("Server Error");
+
+    })
+})
 
 app.post("/adduser",async(req,res)=>{
     console.log(req.body);
@@ -38,12 +82,14 @@ app.post("/adduser",async(req,res)=>{
 
 app.post("/newpost",checkLogin,(req,res)=>{
     console.log(req.body);
-    const {title,desc,category,username,img}=req.body;
+    const {title,desc,category,img}=req.body;
     const date=new Date(Date.now());
     const quert="INSERT INTO `newsapp`.`posts` (`title`, `desc`, `date`, `id`,`category`,`username`,`img`) VALUES (?,?,?,?,?,?,?);";
-    db.query(quert,[title,desc,date.toLocaleTimeString(),Date.now(),category,username,img],(err,result)=>{
-        if(result)
-        res.send(req.body);
+    db.query(quert,[title,desc,date.toLocaleString(),Date.now(),category,req.username,img],(err,result)=>{
+        if(result){
+            console.log("Abid");
+        res.status(200).send(req.body);
+        }
         else{
             console.log(result+err);
         res.send(result);
@@ -78,7 +124,7 @@ app.post("/login",async(req,res)=>{
    // const pass=bcrypt.compare()
 })
 app.get("/profile",checkLogin,async(req,res)=>{
-    console.log("I am abid");
+    console.log("I am abid123");
 res.status(200).send(req.username);
 });
 

@@ -63,7 +63,17 @@
   margin-top: 50px;
 }
 .cat {
-  width: 100%;
+  width: 30%;
+  margin-right: 20px;
+}
+.navLink {
+  text-decoration: none;
+}
+.pos {
+  width: 70%;
+}
+.post {
+  width: auto;
 }
 .cat li {
   list-style-type: none;

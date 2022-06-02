@@ -15,6 +15,7 @@ const submit=()=>{
     //console.log(data);
     if(data.status===200){
       localStorage.setItem('token',data.data);
+      localStorage.setItem("username",login);
     setWhat(true);
     }
  }).catch(err=>

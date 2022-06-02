@@ -10,9 +10,6 @@ export default  function PrivateOutlet() {
    async ()=>{
     const res=await axios.get("http://localhost:3001/profile",{
   headers: {
-    // 'application/json' is the modern content-type for JSON, but some
-    // older servers may use 'text/json'.
-    // See: http://bit.ly/text-json,
     Authorization:`Bearer ${localStorage.getItem("token")}`,
     'content-type': 'text/json'
   }
@@ -25,7 +22,7 @@ setToken(true);
  console.log(token);
    return (
      <div>
-     {token? <Outlet/>:<LogIn/>}
+     {token? <Outlet/>:<LogIn />}
      </div>
    )
 }
