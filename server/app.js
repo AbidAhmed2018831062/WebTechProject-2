@@ -18,6 +18,33 @@ database:"newsapp"
 
 }
 ) 
+app.post("/validateuser",(req,res)=>{
+    const {username,email}=req.query;
+    if(username!=null)
+    {
+        const sql= "SELECT * FROM users WhERE username=?";
+         db.query(sql,[username],(err,result)=>{
+             if(err!=null)
+             {
+                 res.status(200).send({msg:"Valid Username"});
+             }
+             else
+             res.status(500).send("Username exists"); 
+         })
+    }
+    else
+    {
+        const sql= "SELECT * FROM users WhERE email=?";
+        db.query(sql,[email],(err,result)=>{
+            if(err!=null)
+            {
+                res.status(200).send({msg:"Valid email"});
+            }
+            else
+            res.status(500).send("Email exists"); 
+        })
+    }
+})
 app.get("/getPosts",(req,res)=>{
     const sql= "SELECT * FROM posts WhERE username=?";
    const username=req.query.username;
@@ -64,16 +91,22 @@ app.get("/getAllPosts",(req,res)=>{
 })
 
 app.post("/adduser",async(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     const {name,username,email,password,img}=req.body;
     const hashedPassword = await bcrypt.hash(password,10);
     const quert="INSERT INTO `newsapp`.`users` (`username`, `email`, `name`, `password`) VALUES (?,?,?,?);";
     db.query(quert,[username,email,name,hashedPassword,img],(err,result)=>{
-        if(result)
-        res.send(req.body);
+        if(err===null)
+        res.status(200).send(result);
         else{
-            console.log(result+err);
-        res.send(result);
+         if(err.sqlMessage.includes("username")){
+             console.log("Hey I am Abid")
+         res.status(400).send({username:err.sqlMessage});
+         }
+     else if(err.sqlMessage.includes("email"))
+         res.status(400).send({email:"Email already exists"});
+         else
+         res.status(500).send("Server Error");
         }
     })
     
@@ -110,7 +143,7 @@ app.post("/login",async(req,res)=>{
                    username:login,
                    name:result[0].name
                },process.env.JWT_SECRET,{
-                   expiresIn:"1h"
+                   expiresIn:"36000s"
                });
                console.log(token);
            res.status(200).send(token);
@@ -122,6 +155,18 @@ app.post("/login",async(req,res)=>{
         res.send("Username and password combination is not right")
     })
    // const pass=bcrypt.compare()
+})
+app.get("/showsidepost",(req,res)=>{
+    const sql= "SELECT * FROM posts where category=?";
+    db.query(sql,[req.query.category],(err,result)=>{
+        if(err===null)
+        {
+            res.status(200).send(result.reverse());
+        }
+        else
+        res.status(500).send("Server Error");
+
+    })
 })
 app.get("/profile",checkLogin,async(req,res)=>{
     console.log("I am abid123");

@@ -19,6 +19,8 @@ h1 {
   margin-bottom: 4px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: bold;
+  text-align: center;
+  font-size: 130%;
 }
 
 .same p {
@@ -30,6 +32,9 @@ h1 {
   border: 1 px solid grey;
   border-radius: 5px;
   padding: 10px 15px;
+}
+.mainPosts h3 {
+  font-size: 130%;
 }
 
 .hey {
@@ -176,7 +181,7 @@ a {
 .posts {
   width: 100%;
   margin-top: 20px;
-  text-align: center;
+  margin-left: 20px;
 }
 .posts img {
   margin-top: 5px;
@@ -186,9 +191,7 @@ a {
 }
 .posts h4 {
   width: 55%;
-  margin-top: -10px;
-  display: inline-block;
-  color: black;
+  color: white;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 .posts img {
@@ -201,6 +204,15 @@ a {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-top: 3px;
   color: gray;
+  margin-bottom: 20px;
+}
+.span1 {
+  display: block;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-top: 3px;
+  color: white;
+  font-weight: bold;
+  font-size: 110%;
   margin-bottom: 20px;
 }
 .img {
@@ -224,4 +236,7 @@ a {
   display: inline-block;
   width: 20%;
   margin-left: 5%;
+}
+.navLink {
+  text-decoration: none;
 }

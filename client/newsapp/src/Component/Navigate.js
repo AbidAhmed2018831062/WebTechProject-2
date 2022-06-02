@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import right from '../asset/images/right.jpg';
 function Navigate1({text})
@@ -9,14 +9,11 @@ function Navigate1({text})
     const showTime=()=>{
         int= setInterval(()=>{
            setTime((prev)=> prev-1);
-           if(time<=-1)
-           clearInterval(int);
          },1000);
+         if(time<=-1)
+         clearInterval(int);
          return time;
         }
-        useEffect(()=>{
-          return ()=> clearInterval(int);
-        },[int]);
 return(
     <div>
         <img src={right} alt="Successful"></img>
