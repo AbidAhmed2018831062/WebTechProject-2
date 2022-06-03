@@ -24,3 +24,6 @@
 .side .side2 {
   width: 99%;
 }
+.navLink {
+  text-decoration: none;
+}

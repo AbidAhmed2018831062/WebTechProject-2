@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import style from '../asset/css/profile.module.css';
 import Posts from './Posts';
+const context=React.createContext();
+export { context };
 function ShowPosts({posts})
 {
+   
     const category=['All','Sports','Movies','Series','Trending','Crime',"Programming"];
    // console.log(category);
     let filterPost=[];
@@ -28,7 +31,13 @@ function ShowPosts({posts})
        const addNewPost=(post1)=>{
           // setPosts((prev)=> [...prev,post1]);
        }
-       //  <NavLink to={`/post/${element.id}`}className={({isActive})=> isActive?style.navLink:style.navLink}> 
+       
+       const setPostsFromOutside=((uid)=>{
+        setPosts(prev=> {
+            const preToDo=prev.filter((post)=> post.id !== uid);
+            return preToDo;
+         })
+    });
 return(
     <div className={style.catpo}>
     <div className={style.cat}>
@@ -42,6 +51,7 @@ return(
         </ul>
         
     </div>
+    <context.Provider value={setPostsFromOutside}>
      <div className={style.pos}>
          {
              
@@ -53,6 +63,7 @@ return(
            })
          }
      </div>
+     </context.Provider>
      </div>
 )
 }

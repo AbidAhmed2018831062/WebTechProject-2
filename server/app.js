@@ -54,8 +54,11 @@ app.get("/getPosts",(req,res)=>{
         {
             res.status(200).send(result.reverse());
         }
-        else
-        res.status(500).send("Server Error"); 
+        else{ if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
+        }
     })
 });
 app.get("/showsinglepost",(req,res)=>{
@@ -70,9 +73,10 @@ app.get("/showsinglepost",(req,res)=>{
             console.log(result);
             res.status(200).send(result);
         }
-        else{
-            console.log(result);
-        res.status(500).send("Server Error");
+        else{ if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
         }
         
 
@@ -85,8 +89,11 @@ app.get("/getAllPosts",(req,res)=>{
         {
             res.status(200).send(result.reverse());
         }
-        else
-        res.status(500).send("Server Error");
+        else{ if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
+        }
 
     })
 })
@@ -223,7 +230,6 @@ app.put("/updatePost",(req,res)=>{
         }
         else
         {
-            console.log(err);
             if(err.sqlMessage!==null)
             res.status(400).send(err.sqlMessage);
             else
@@ -239,8 +245,11 @@ app.get("/showsidepost",(req,res)=>{
         {
             res.status(200).send(result.reverse());
         }
-        else
-        res.status(500).send("Server Error");
+        else{ if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
+        }
 
     })
 })
@@ -248,6 +257,24 @@ app.get("/profile",checkLogin,async(req,res)=>{
     console.log("I am abid123");
 res.status(200).send(req.username);
 });
+
+app.delete("/deletepost",(req,res)=>{
+    const sql= "DELETE FROM posts where id=?";
+    db.query(sql,[req.query.id],(err,result)=>{
+        console.log(req.query.id);
+        console.log(result);
+        if(err===null)
+        {
+            res.status(200).send(result);
+        }
+        else{ if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
+        }
+
+    })
+})
 
 const errorHandler = (err, req, res, next) => {
     if (res.headersSent) {
