@@ -6,6 +6,7 @@ const jwt=require("jsonwebtoken");
 require('dotenv').config();
 app=express();
 const cors=require("cors");
+const { devNull } = require("os");
 app.use(cors());
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -112,20 +113,56 @@ app.post("/adduser",async(req,res)=>{
     
    
 });
-
+app.post ("/addWatchLater",(req,res)=>{
+    const sql="INSERT INTO `newsapp`.`watchlater` (`username`, `id`) VALUES (?,?)";
+    db.query(sql,[req.body.username,req.body.id],(err,result)=>{
+        if(err===null)
+        {
+           
+            res.status(200).send(`The post has been saved to your watch later successfully`);
+        }
+        else
+        {
+            if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
+        }
+    })
+})
+app.post ("/addfavLater",(req,res)=>{
+    const sql="INSERT INTO `newsapp`.`fav` (`username`, `id`) VALUES (?,?)";
+    db.query(sql,[req.body.username,req.body.id],(err,result)=>{
+        if(err===null)
+        {
+           
+            res.status(200).send(`The post has been saved to your fav list successfully`);
+        }
+        else
+        {
+            if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
+        }
+    })
+})
 app.post("/newpost",checkLogin,(req,res)=>{
     console.log(req.body);
     const {title,desc,category,img}=req.body;
     const date=new Date(Date.now());
+    const id=Date.now();
     const quert="INSERT INTO `newsapp`.`posts` (`title`, `desc`, `date`, `id`,`category`,`username`,`img`) VALUES (?,?,?,?,?,?,?);";
-    db.query(quert,[title,desc,date.toLocaleString(),Date.now(),category,req.username,img],(err,result)=>{
-        if(result){
+    db.query(quert,[title,desc,date.toLocaleString(),id,category,req.username,img],(err,result)=>{
+        if(err===null){
             console.log("Abid");
-        res.status(200).send(req.body);
+        res.status(200).send({id});
         }
         else{
-            console.log(result+err);
-        res.send(result);
+            if(err.sqlMessage!==null)
+        res.status(400).send(err.sqlMessage);
+        else
+        res.status(500).status("Internal Server Error");
         }
     })
     

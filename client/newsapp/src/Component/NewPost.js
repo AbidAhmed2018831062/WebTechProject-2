@@ -10,6 +10,7 @@ function NewPost()
 const [title,setTitle]=React.useState('');
 const [desc,setDes]=React.useState('');
 const [cat,setCat]=React.useState('Sports');
+const [id,setId]=React.useState("");
 const submit=()=>{
     axios.post("http://localhost:3001/newpost",{
       title,desc,category:cat,img:code1
@@ -17,7 +18,9 @@ const submit=()=>{
       headers:{
         "Authorization":`Bearer ${localStorage.getItem("token")}`
       }
-    }).then(()=>{
+    }).then((res)=>{
+      console.log(res);
+      setId(res.data.id);
      setWhat(true);
    }).catch(err=>
      {
@@ -62,7 +65,10 @@ return(
                 </select>
                 <button type='submit' onClick={submit}>Submit</button>
                 </div>}
-            {what&&<Navigate1 text="Your news has been posted"/>}    
+            {what&&<Navigate1 to={{
+              to:"post",
+              id
+            }} text="Your news has been posted"/>}    
     </div>
 )
 }

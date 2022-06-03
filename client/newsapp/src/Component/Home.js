@@ -26,7 +26,7 @@ return(
             <img src={iu} alt="Profile"></img>
             <NavLink to='/profile/newpost' className={({isActive})=> isActive? style.button: style.button}>Write a new news</NavLink>
         </div>
-        <ShowPosts posts={posts}/>;
+        <ShowPosts posts={posts}/>
     </div>
 )
 }

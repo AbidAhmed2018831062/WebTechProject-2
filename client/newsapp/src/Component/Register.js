@@ -30,7 +30,7 @@ const submit=(e)=>{
   console.log(errorFree);
   e.preventDefault();
   setErrors(validateForm({name,username,email,password}));
-  setFree(true);
+  //setFree(true);
   if(Object.keys(errors).length===0&&errorFree){
     axios.post("http://localhost:3001/adduser",{
       name,username,email,password
@@ -58,8 +58,8 @@ const submit=(e)=>{
 
 }
 useEffect(()=>{
-  if(Object.keys(errors).length===0&&errorFree)
-  console.log(errors);
+  if(Object.keys(errors).length===0)
+  setFree(true);
 },[errors,setFree,errorFree]);
 let element="";
 if(what===false)
@@ -81,7 +81,7 @@ element=<div>
 return(
     <div className={style.login}>
       {what||element}
-   {what && <Navigate1 text="Your account has been created successfully"/>}
+   {what && <Navigate1 to={{to:"LogIn"}} text="Your account has been created successfully"/>}
     </div>
 )
 }

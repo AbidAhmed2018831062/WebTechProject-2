@@ -8,6 +8,7 @@ function LogIn()
 const [login,setLogIn]=React.useState('');
 const [password,setPass]=React.useState("");
 const [what,setWhat]=React.useState(false);
+const [error,setError]=React.useState(true);
 const submit=()=>{
   axios.post("http://localhost:3001/login",{
    login, password
@@ -20,7 +21,8 @@ const submit=()=>{
     }
  }).catch(err=>
    {
-     console.log(err);
+   if(err)
+   setError(false);
    });
 }
 const handleChange= (e)=>{
@@ -38,9 +40,10 @@ return(
     <input type="text" name="username" value={login} onChange={handleChange}></input>
     <label htmlFor="pass">Password</label>
     <input type="password" name="pass" value={password} onChange={handleChange}></input>
+   {!error&& <p className={style.error}>Username and Password combination is not right</p>}
     <button type='submit' onClick={submit}>LogIn</button>
     <NavLink to="/register" className={({isActive})=>isActive? style.navLink:style.navLink}>Register?</NavLink></div>}
-    {what && <Navigate1 text="You have been successfully logged in"/>}
+    {what && <Navigate1 to={{to:"/home"}}text="You have been successfully logged in"/>}
     </div>
 )
 }

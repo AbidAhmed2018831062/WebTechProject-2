@@ -24,7 +24,7 @@ function ShowSinglePost()
    }}).then(data=>{
 if(data.status===200)
 {
-    setSidePost(data.data);
+    setSidePost(data.data.slice(0,7));
     console.log(data);
     setState(true);
   
@@ -43,11 +43,11 @@ return(
      <span className={style.span}>{post[0].date}</span>
      <span className={style.span1}>Author: {post[0].username}</span>
      <img src={post[0].img} className={style.img} alt="Pro"/>
-     <p className={style.para}>{post[0].desc}</p>
+     <pre className={style.para}>{post[0].desc}</pre>
     </div>
     <div className={style.sidePosts}>
     <h3>Recent Posts</h3>
-        {sidePost.map((element,)=>{
+        {sidePost.map((element,i)=>{
        if(element.id===post[0].id)
       return(<></>);
        return (

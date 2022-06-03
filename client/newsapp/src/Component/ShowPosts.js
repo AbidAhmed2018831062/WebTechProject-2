@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import style from '../asset/css/profile.module.css';
 import Posts from './Posts';
 function ShowPosts({posts})
@@ -29,6 +28,7 @@ function ShowPosts({posts})
        const addNewPost=(post1)=>{
           // setPosts((prev)=> [...prev,post1]);
        }
+       //  <NavLink to={`/post/${element.id}`}className={({isActive})=> isActive?style.navLink:style.navLink}> 
 return(
     <div className={style.catpo}>
     <div className={style.cat}>
@@ -46,10 +46,9 @@ return(
          {
              
            posts1.map((element)=>{
-              return ( 
-                  <NavLink to={`/post/${element.id}`}className={({isActive})=> isActive?style.navLink:style.navLink}> 
+              return ( <div>
               <Posts post={element}/>
-              </NavLink>
+              </div>
               )
            })
          }

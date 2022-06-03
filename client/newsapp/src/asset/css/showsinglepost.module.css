@@ -136,6 +136,7 @@ a {
 .cona {
   margin-bottom: 100px;
   margin-top: 50px;
+  display: flex;
 }
 .buttons .delete {
   background-color: red;
@@ -216,13 +217,19 @@ a {
   margin-bottom: 20px;
 }
 .img {
-  width: 100%;
+  width: 50%;
+  text-align: center;
+  margin-left: 25%;
+  height: 200px;
 }
 .para {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  width: 100%;
+  width: min-content;
   display: block;
   margin-top: 20px;
+  font-size: 120%;
+  width: 100%;
+  overflow-x: visible;
 }
 .mainPosts {
   display: inline-block;
@@ -230,10 +237,15 @@ a {
   margin-left: 25%;
   margin-top: 0%;
 }
+pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
 
 .sidePosts {
-  float: right;
-  display: inline-block;
   width: 20%;
   margin-left: 5%;
 }
