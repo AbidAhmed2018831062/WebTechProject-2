@@ -1,11 +1,14 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import style from '../asset/css/newpost.module.css';
 import code1 from '../asset/images/code1.jpg';
 import './Global';
 import Navigate1 from './Navigate';
 function NewPost()
 {
+ const {userId}=useParams();
+  console.log(userId+"Abid");
     const [what,setWhat]=React.useState(false);
 const [title,setTitle]=React.useState('');
 const [desc,setDes]=React.useState('');
@@ -42,7 +45,42 @@ const handleChange= (e)=>{
  {
      setCat(change);
  }
+
 }
+
+const update=()=>{
+  axios.put("http://localhost:3001/updatePost",{
+    title,desc,category:cat,img:code1,userId
+  },{
+    headers:{
+      "Authorization":`Bearer ${localStorage.getItem("token")}`
+    }
+  }).then((res)=>{
+    console.log(res);
+    setId(userId);
+   setWhat(true);
+ }).catch(err=>
+   {
+     console.log(err);
+   });
+}
+useEffect(()=>{
+   if(userId!=="false")
+   {
+     axios.get("http://localhost:3001/findPost",
+     {params:{id:userId}}).then((data)=>{
+       console.log(data);
+       if(data.status===200)
+       {
+         setCat(data.data[0].category);
+         setDes(data.data[0].desc);
+         setTitle(data.data[0].title);
+       }
+     }).catch((err)=>{
+       console.log(err);
+     })
+   }
+},[userId])
 return(
     <div className={style.newpost}>
       {what||
@@ -63,7 +101,7 @@ return(
                     <option value="Trending">Trending</option>
                     <option value="Others">Others</option>
                 </select>
-                <button type='submit' onClick={submit}>Submit</button>
+                {userId==="false"?<button type='submit' onClick={submit}>Submit</button>:<button type='submit' onClick={update}>Update</button>}
                 </div>}
             {what&&<Navigate1 to={{
               to:"post",

@@ -29,7 +29,7 @@ return(
      <h2>{localStorage.getItem("username")}</h2>
      </div>
      <div className={style.flex2}>
-     <NavLink to='/profile/newpost' className={({isActive})=> isActive? style.active: style.link}>Create Post</NavLink>
+     <NavLink to='/profile/newpost/false' className={({isActive})=> isActive? style.active: style.link}>Create Post</NavLink>
          <NavLink to='/editprofile' className={({isActive})=> isActive? style.active1: style.link1}>Edit Profile</NavLink>
      </div>
      </div>

@@ -16,7 +16,7 @@ function App() {
       <Route path="/login" element={<LogIn/>}></Route>
       <Route path="/register" element={<Register/>}></Route>
       <Route path="/*" element={<PrivateOutlet />}>  
-      <Route path="profile/newpost" element={<NewPost/>}></Route>
+      <Route path="profile/newpost/:userId" element={<NewPost/>}></Route>
       <Route path="profile" element={<Profile/>}></Route>
       <Route path="home" element={<Home/>}></Route>
       <Route path="post/:id" element={<ShowSinglePost />}></Route>

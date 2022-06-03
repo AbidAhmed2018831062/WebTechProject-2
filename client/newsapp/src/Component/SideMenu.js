@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import style from '../asset/css/sidemenu.module.css';
 import del from '../asset/images/delete.png';
 import watch from '../asset/images/download.png';
@@ -73,10 +74,12 @@ return(
     <img src={fav} width="20px" height="20px" alt="Watch Later"/>
     <span className={style.span}>Save to Favorites</span>
     </div>
-    <div className={style.item}>
+    {ed1?
+    <NavLink className={style.spanNav}to={`/profile/newpost/${id}`}>
+    <div className={style.item} >
     <img src={edit} width="20px" height="20px" alt="Watch Later"/>
-    {ed1? <span className={style.span}>Edit Post</span>:""}
-    </div>
+     <span className={style.span}>Edit Post</span>
+    </div></NavLink> :""}
     <div className={style.item}>
     <img src={del} width="20px" height="20px" alt="Watch Later"/>
     {del1? <span className={style.span}>Delete Post</span>:""}

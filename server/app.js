@@ -146,6 +146,26 @@ app.post ("/addfavLater",(req,res)=>{
             res.status(500).status("Internal Server Error");
         }
     })
+});
+
+app.get("/findPost",(req,res)=>{
+   // console.log(req.body);
+    const sql="SELECT * FROM posts WHERE id=?";
+    db.query(sql,[req.query.id],(err,result)=>{
+        if(err===null)
+        {
+            
+           
+            res.status(200).send(result);
+        }
+        else
+        {
+            if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
+        }
+    })
 })
 app.post("/newpost",checkLogin,(req,res)=>{
     console.log(req.body);
@@ -180,7 +200,7 @@ app.post("/login",async(req,res)=>{
                    username:login,
                    name:result[0].name
                },process.env.JWT_SECRET,{
-                   expiresIn:"36000s"
+                   expiresIn:"1h"
                });
                console.log(token);
            res.status(200).send(token);
@@ -192,6 +212,25 @@ app.post("/login",async(req,res)=>{
         res.send("Username and password combination is not right")
     })
    // const pass=bcrypt.compare()
+});
+app.put("/updatePost",(req,res)=>{
+    const {title,desc,category,img,userId}=req.body;
+    const sql= "UPDATE posts SET `desc`=?, `title`=? ,  `category`=? , `img`=?  where `id`=?";
+    db.query(sql,[desc,title,category,img,userId],(err,result)=>{
+        if(err===null)
+        {
+            res.status(200).send(result);
+        }
+        else
+        {
+            console.log(err);
+            if(err.sqlMessage!==null)
+            res.status(400).send(err.sqlMessage);
+            else
+            res.status(500).status("Internal Server Error");
+    }
+
+    })
 })
 app.get("/showsidepost",(req,res)=>{
     const sql= "SELECT * FROM posts where category=?";
