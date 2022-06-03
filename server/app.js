@@ -108,7 +108,7 @@ app.post("/adduser",async(req,res)=>{
         res.status(200).send(result);
         else{
          if(err.sqlMessage.includes("username")){
-             console.log("Hey I am Abid")
+             //console.log("Hey I am Abid")
          res.status(400).send({username:err.sqlMessage});
          }
      else if(err.sqlMessage.includes("email"))
@@ -254,7 +254,7 @@ app.get("/showsidepost",(req,res)=>{
     })
 })
 app.get("/profile",checkLogin,async(req,res)=>{
-    console.log("I am abid123");
+    //console.log("I am abid123");
 res.status(200).send(req.username);
 });
 
