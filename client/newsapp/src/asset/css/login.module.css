@@ -42,3 +42,6 @@ input[type="file"]::file-selector-button {
   background-color: white;
   transition: 1s;
 }
+.error {
+  color: red;
+}

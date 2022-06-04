@@ -132,10 +132,10 @@ return(
     <img src={edit} width="20px" height="20px" alt="Watch Later"/>
      <span className={style.span}>Edit Post</span>
     </div></NavLink> :""}
-    <div className={style.item} onClick={()=> deleteHandler("show")}>
+    {del1?<div className={style.item} onClick={()=> deleteHandler("show")}>
     <img src={del} width="20px" height="20px" alt="Watch Later"/>
-    {del1? <span className={style.span}>Delete Post</span>:""}
-    </div>
+     <span className={style.span}>Delete Post</span>
+    </div>:""}
     {wat&&<div className={style.watAndFav} >
         <p>{text}</p>
     </div>}

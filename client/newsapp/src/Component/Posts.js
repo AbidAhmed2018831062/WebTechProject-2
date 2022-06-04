@@ -7,7 +7,8 @@ function Posts({post})
 {
     const user=localStorage.getItem("username");
 
-    const ed1=post.username===user?false:true,del1=post.username===user?false:true;
+    const ed1=post.username===user?true:false,del1=post.username===user?true:false;
+    console.log(user,post.username);
     const ref=useRef(null);
     const sideRef=useRef(null);
     const [sideMenu,setSideMenu]=React.useState(false);

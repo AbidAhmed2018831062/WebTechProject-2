@@ -27,6 +27,65 @@ database:"newsapp"
 
 }
 ) 
+app.put("/updateuser",async (req,res)=>{
+    //  console.log(req.files.file);
+    let imageErrors={};
+      const {name,username,email}=req.body;
+      if(req.files!==null)
+      imageErrors = imageUpload(req.files.file);
+    else{
+      //  console.log(req.body);
+        const {fileNa}=req.body;
+        // console.log(fileNa);
+    imageErrors.fileNa = fileNa;
+    imageErrors.imageErrors=false;
+    }
+   // console.log(imageErrors)
+     // console.log(imageErrors.fileNa+"Abid");
+      if(!imageErrors.imageErrors){
+          console.log(imageErrors.fileNa)
+      const quert="UPDATE users set `name`=?, `email`=?, `img`=? where username=?;";
+      db.query(quert,[name,email,imageErrors.fileNa,username],(err,result)=>{
+          if(err===null)
+          res.status(200).send(result);
+          else{
+              console.log(err);
+           if(err.sqlMessage.includes("username")){
+               //console.log("Hey I am Abid")
+           res.status(400).send({username:err.sqlMessage});
+           }
+       else if(err.sqlMessage.includes("email"))
+           res.status(400).send({email:"Email already exists"});
+           else
+           res.status(500).send("Server Error");
+          }
+      })
+    //  console.log(req.files);
+  }
+  else
+  {
+      console.log(imageErrors);
+      errors.imError=imageErrors.imageErrors;
+      res.status(400).send(errors);
+  }
+     
+  });
+app.get("/getuser",checkLogin,(req,res)=>{
+const sql= "SELECT * FROM users WhERE username=?";
+const username=req.headers.username;
+//console.log(username);
+ db.query(sql,[username],(err,result)=>{
+     if(err===null)
+     {
+         res.status(200).send(result);
+     }
+     else{ if(err.sqlMessage!==null)
+         res.status(400).send(err.sqlMessage);
+         else
+         res.status(500).status("Internal Server Error");
+     }
+ })
+});
 app.post("/validateuser",(req,res)=>{
     const {username,email}=req.query;
     if(username!=null)
@@ -134,6 +193,7 @@ app.post("/adduser",async (req,res)=>{
 }
 else
 {
+    console.log(imageErrors);
     errors.imError=imageErrors.imageErrors;
     res.status(400).send(errors);
 }
@@ -227,16 +287,15 @@ app.post("/login",async(req,res)=>{
     db.query(sql,[login],async (err,result)=>{
         if(err===null&&result.length>0)
         {
+            console.log(result);
            const pass=result[0].password;
            const isRightPassword=await bcrypt.compare(password,pass);
            if(isRightPassword){
                const token=await jwt.sign({
                    username:login,
                    name:result[0].name
-               },process.env.JWT_SECRET,{
-                   expiresIn:"1h"
-               });
-               console.log(token);
+               },process.env.JWT_SECRET)
+               console.log(token+"abid");
            res.status(200).send({token:token,img:result[0].img});
             }
            else

@@ -8,7 +8,7 @@ const imageUpload=(file)=>{
     const uplo=`D:/AbidReactProjects/WebTechProject/client/newsapp/src/asset/images/${fileNa}`;
     if(file.mimetype==="image/jpg"||file.mimetype==="image/jpeg"||file.mimetype==="image/png")
 {
-    if(file.size<=200000){
+    if(file.size<=2000000){
     file.mv(uplo,err=>{
         if(err){
             console.log(err);

@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './asset/css/global.css';
+import EditProfile from './Component/EditProfile';
 import Header from "./Component/Header";
 import Home from './Component/Home';
 import LogIn from './Component/LogIn';
@@ -19,6 +20,7 @@ function App() {
       <Route path="profile/newpost/:userId" element={<NewPost/>}></Route>
       <Route path="profile" element={<Profile/>}></Route>
       <Route path="home" element={<Home/>}></Route>
+      <Route path="editprofile" element={<EditProfile/>}></Route>
       <Route path="post/:id" element={<ShowSinglePost />}></Route>
      </Route>
      </Routes>
