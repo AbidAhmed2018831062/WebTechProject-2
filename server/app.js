@@ -195,11 +195,13 @@ app.get("/findPost",(req,res)=>{
 })
 app.post("/newpost",checkLogin,(req,res)=>{
     console.log(req.body);
-    const {title,desc,category,img}=req.body;
+    const imageErrors=imageUpload(req.files.file);
+    const {title,desc,category}=req.body;
     const date=new Date(Date.now());
     const id=Date.now();
+    if(!imageErrors.imageErrors){
     const quert="INSERT INTO `newsapp`.`posts` (`title`, `desc`, `date`, `id`,`category`,`username`,`img`) VALUES (?,?,?,?,?,?,?);";
-    db.query(quert,[title,desc,date.toLocaleString(),id,category,req.username,img],(err,result)=>{
+    db.query(quert,[title,desc,date.toLocaleString(),id,category,req.username,imageErrors.fileNa],(err,result)=>{
         if(err===null){
             console.log("Abid");
         res.status(200).send({id});
@@ -211,6 +213,12 @@ app.post("/newpost",checkLogin,(req,res)=>{
         res.status(500).status("Internal Server Error");
         }
     })
+}
+else
+{
+    const err=imageErrors.imageErrors;
+  res.status(400).send(err);
+}
     
 });
 app.post("/login",async(req,res)=>{

@@ -24,7 +24,7 @@ return(
     <div className={style.home}>
         <div className={style.profile}>
             <img  src={`http://127.0.0.1:8887/${location}`}  alt="Profile"></img>
-            <NavLink to='/profile/newpost' className={({isActive})=> isActive? style.button: style.button}>Write a new news</NavLink>
+            <NavLink to='/profile/newpost/false' className={({isActive})=> isActive? style.button: style.button}>Write a new news</NavLink>
         </div>
         <ShowPosts posts={posts}/>
     </div>

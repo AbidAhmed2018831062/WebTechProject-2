@@ -34,9 +34,7 @@ button {
 .navLink {
   font-size: 110%;
 }
-.error {
-  color: red;
-}
+
 input[type="file"]::file-selector-button {
   border: 2px solid grey;
   padding: 0.2em 0.4em;

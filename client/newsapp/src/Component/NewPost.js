@@ -3,23 +3,30 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import style from '../asset/css/newpost.module.css';
 import code1 from '../asset/images/code1.jpg';
+import validatePostData from '../asset/js/validatePostData';
 import './Global';
 import Navigate1 from './Navigate';
 function NewPost()
 {
  const {userId}=useParams();
   console.log(userId+"Abid");
+  const [fileName,setFileName]=React.useState("");
+  const [error,setError]=React.useState([]);
+const [file,setFile]=React.useState("");
     const [what,setWhat]=React.useState(false);
 const [title,setTitle]=React.useState('');
 const [desc,setDes]=React.useState('');
 const [cat,setCat]=React.useState('Sports');
 const [id,setId]=React.useState("");
 const submit=()=>{
+  setError(validatePostData({title,desc,file}));
+  if(Object.keys(error).length===0){
     axios.post("http://localhost:3001/newpost",{
-      title,desc,category:cat,img:code1
+      title,desc,category:cat,file
     },{
       headers:{
-        "Authorization":`Bearer ${localStorage.getItem("token")}`
+        "Authorization":`Bearer ${localStorage.getItem("token")}`,
+        'Content-type':"multipart/form-data"
       }
     }).then((res)=>{
       console.log(res);
@@ -27,9 +34,16 @@ const submit=()=>{
      setWhat(true);
    }).catch(err=>
      {
-       console.log(err);
+      setError(err.response.data);
      });
- }
+  }
+}
+ const imageChange=(e)=>{
+  console.log(e);
+  setFileName(e.target.files[0].name);
+  setFile(e.target.files[0]);
+  console.log(file);
+}
 const handleChange= (e)=>{
   const change=e.target.value;
  if(e.target.name==="title")
@@ -53,7 +67,7 @@ const update=()=>{
     title,desc,category:cat,img:code1,userId
   },{
     headers:{
-      "Authorization":`Bearer ${localStorage.getItem("token")}`
+      "Authorization":`Bearer ${localStorage.getItem("token")}`,
     }
   }).then((res)=>{
     console.log(res);
@@ -87,10 +101,20 @@ return(
       <div>
       <h2>Create a New News</h2>
         <hr></hr>
+        <label htmlFor="image">Profile Picture</label> 
+<input className={style.fileSelector}
+  type='file'
+  name="image"
+  style={{ display: 'block' }}
+  onChange={imageChange}
+/>
+<p className={style.error}>{error.image}</p>
         <label htmlFor="title">Title</label>
         <input type="text" name="title" value={title} onChange={handleChange}></input>
+        <p className={style.error}>{error.title}</p>
         <label htmlFor="des">Description</label>
         <textarea type="text" name="desc" value={desc} onChange={handleChange}></textarea>
+        <p className={style.error}>{error.desc}</p>
         <label htmlFor="cat">Category</label>
         <select name="cat" value={cat} onChange={handleChange}>
                     <option value="Sports">Sports</option>

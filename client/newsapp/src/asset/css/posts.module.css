@@ -27,3 +27,8 @@
 .navLink {
   text-decoration: none;
 }
+.image {
+  min-width: 200px;
+  height: 200px;
+  object-fit: fill;
+}

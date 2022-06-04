@@ -42,7 +42,7 @@ return(
      <h3>{post[0].title}</h3>
      <span className={style.span}>{post[0].date}</span>
      <span className={style.span1}>Author: {post[0].username}</span>
-     <img src={post[0].img} className={style.img} alt="Pro"/>
+     <img src={`http://127.0.0.1:8887/${post[0].img}`} className={style.img} alt="Pro"/>
      <pre className={style.para}>{post[0].desc}</pre>
     </div>
     <div className={style.sidePosts}>
@@ -54,7 +54,7 @@ return(
        <NavLink to={`/post/${element.id}`}key={element.id} className={({isActive})=> isActive?style.navLink:style.navLink}>
        <div key={element.id}>
         <div className={style.posts}>
-            <img src={element.img}alt="Pro"/>
+            <img src={`http://127.0.0.1:8887/${element.img}`}alt="Pro"/>
             <h4>{element.title}</h4>
         </div>
     </div>
