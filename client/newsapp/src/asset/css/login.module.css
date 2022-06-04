@@ -37,3 +37,10 @@ button {
 .error {
   color: red;
 }
+input[type="file"]::file-selector-button {
+  border: 2px solid grey;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: white;
+  transition: 1s;
+}

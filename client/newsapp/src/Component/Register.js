@@ -13,6 +13,8 @@ const [username,setUserName]=React.useState("");
 const [email,setEmail]=React.useState('');
 const [password,setPass]=React.useState('');
 const [what, setWhat]=React.useState(false);
+const [fileName,setFileName]=React.useState("");
+const [file,setFile]=React.useState("");
 const [errors,setErrors]=React.useState({});
 const [errorFree,setFree]=React.useState(false);
 const handleChange= (e)=>{
@@ -26,15 +28,28 @@ const handleChange= (e)=>{
    else 
   setPass(change);
 }
+const imageChange=(e)=>{
+  console.log(e);
+  setFileName(e.target.files[0].name);
+  setFile(e.target.files[0]);
+  console.log(file);
+}
 const submit=(e)=>{
-  console.log(errorFree);
   e.preventDefault();
-  setErrors(validateForm({name,username,email,password}));
-  //setFree(true);
+  setErrors(validateForm({name,username,email,password,file}));
+  setFree(true);
   if(Object.keys(errors).length===0&&errorFree){
-    axios.post("http://localhost:3001/adduser",{
-      name,username,email,password
-    }).then((data)=>{
+    console.log("hi");
+    const data1=new FormData();
+    data1.append("name",name);
+    data1.append("username",username);
+    data1.append("email",email);
+    data1.append("password",password);
+    data1.append("file",file);
+ //   console.log(file);
+    axios.post("http://localhost:3001/adduser",data1,{headers:{
+      'Content-type':"multipart/form-data"
+    }}).then((data)=>{
       console.log(data);
       if(data.status===200){
     //console.log(data);
@@ -44,26 +59,39 @@ const submit=(e)=>{
    }).catch(err=>
      {
        console.log(err);
-      if(err.response.data.username!=null)
+      if(err.response.data?.username)
       {
        // console.log("Hey I am Abid")
         setErrors({username:"Username Already exists"});
       }
-      else if(err.response.data.email!=null)
+      else if(err.response.data?.email)
       {
         setErrors({email:"Email Already exists"});
+      }
+      else if(err.response.data?.imError)
+      {
+        setErrors({image:err.response.data.imError});
       }
      });
    }
 
 }
 useEffect(()=>{
+ // console.log(errorFree);
   if(Object.keys(errors).length===0)
-  setFree(true);
-},[errors,setFree,errorFree]);
+  console.log(errors);
+},[errors]);
 let element="";
 if(what===false)
 element=<div>
+ <label htmlFor="image">Profile Picture</label> 
+<input className={style.fileSelector}
+  type='file'
+  name="image"
+  style={{ display: 'block' }}
+  onChange={imageChange}
+/>
+<p className={style.error}>{errors.image}</p>
 <label htmlFor="name">Name</label>
 <input type="text" name="name" value={name} onChange={handleChange}></input> 
 <p className={style.error}>{errors.name}</p>

@@ -1,8 +1,7 @@
-
-export default function validateForm({name,username,email,password,file},){
+ function validateUser({name,username,email,password},){
     let errors={};
     var emailReg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if(!email.match(emailReg))
+    if(!emailReg.test(email))
         errors.email='The email is not valid';
      if(email.length===0)
     errors.email="Email is required";
@@ -20,11 +19,7 @@ export default function validateForm({name,username,email,password,file},){
            errors.password='Password needs to have one uppercase, lowercase, special character and atelast 8characters';
        }
     }
-   // console.log(Object.keys(file));
-    if(file===null)
-    {
-        errors.image="Image needs to be uploaded";
-    }
    // console.log("Abid");
     return errors;
 }
+module.exports=validateUser;

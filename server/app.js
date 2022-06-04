@@ -1,10 +1,18 @@
 const express=require("express");
 const mysql=require('mysql');
+const fs=require("fs");
 const checkLogin=require("./checkAuth")
 const bcrypt=require('bcrypt');
+const fileUpload=require("express-fileupload");
 const jwt=require("jsonwebtoken");
+const multer=require("multer");
+const {promisify}=require("util");
+const pipeline=promisify(require("stream").pipeline);
+const validateUser=require("./validateUser");
+const imageUpload=require("./imageUpload");
 require('dotenv').config();
 app=express();
+app.use(fileUpload());
 const cors=require("cors");
 const { devNull } = require("os");
 app.use(cors());
@@ -97,16 +105,21 @@ app.get("/getAllPosts",(req,res)=>{
 
     })
 })
-
-app.post("/adduser",async(req,res)=>{
-    //console.log(req.body);
-    const {name,username,email,password,img}=req.body;
+app.post("/adduser",async (req,res)=>{
+  //  console.log(req.files.file);
+    const {name,username,email,password}=req.body;
+    const errors=validateUser({name,username,email,password});
+  let imageErrors= imageUpload(req.files.file);
+ // console.log(imageErrors)
+   // console.log(imageErrors.fileNa+"Abid");
+    if(Object.keys(errors).length===0&&!imageErrors.imageErrors){
     const hashedPassword = await bcrypt.hash(password,10);
-    const quert="INSERT INTO `newsapp`.`users` (`username`, `email`, `name`, `password`) VALUES (?,?,?,?);";
-    db.query(quert,[username,email,name,hashedPassword,img],(err,result)=>{
+    const quert="INSERT INTO `newsapp`.`users` (`username`, `email`, `name`, `password`,`img`) VALUES (?,?,?,?,?);";
+    db.query(quert,[username,email,name,hashedPassword,imageErrors.fileNa],(err,result)=>{
         if(err===null)
         res.status(200).send(result);
         else{
+            console.log(err);
          if(err.sqlMessage.includes("username")){
              //console.log("Hey I am Abid")
          res.status(400).send({username:err.sqlMessage});
@@ -117,7 +130,13 @@ app.post("/adduser",async(req,res)=>{
          res.status(500).send("Server Error");
         }
     })
-    
+  //  console.log(req.files);
+}
+else
+{
+    errors.imError=imageErrors.imageErrors;
+    res.status(400).send(errors);
+}
    
 });
 app.post ("/addWatchLater",(req,res)=>{
@@ -210,7 +229,7 @@ app.post("/login",async(req,res)=>{
                    expiresIn:"1h"
                });
                console.log(token);
-           res.status(200).send(token);
+           res.status(200).send({token:token,img:result[0].img});
             }
            else
            res.status(401).send({what:"Username and password combination is not right"})
@@ -277,6 +296,7 @@ app.delete("/deletepost",(req,res)=>{
 })
 
 const errorHandler = (err, req, res, next) => {
+    console.log(err);
     if (res.headersSent) {
       return next(err);
     }
