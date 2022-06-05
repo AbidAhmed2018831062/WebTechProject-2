@@ -9,6 +9,7 @@ import PrivateOutlet from './Component/PrivateOutlet';
 import Profile from './Component/Profile';
 import Register from './Component/Register';
 import ShowSinglePost from './Component/ShowSinglePost';
+import WatchandFav from './Component/WatchandFav';
 function App() {
   return (
     <div className="App">
@@ -22,6 +23,7 @@ function App() {
       <Route path="home" element={<Home/>}></Route>
       <Route path="editprofile" element={<EditProfile/>}></Route>
       <Route path="post/:id" element={<ShowSinglePost />}></Route>
+      <Route path="watchandfav/:what" element={<WatchandFav />}></Route>
      </Route>
      </Routes>
     </div>

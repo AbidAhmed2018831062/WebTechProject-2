@@ -7,8 +7,9 @@ import watch from '../asset/images/download.png';
 import edit from '../asset/images/edit.png';
 import fav from '../asset/images/fav.png';
 import { context } from './ShowPosts';
-function SideMenu({ed1,del1,id},inputRef)
+function SideMenu({ed1,del1,id,post},inputRef)
 {
+    //console.log(post);
     const setPostsFromOutside=useContext(context);
     const [wat,setWat]=React.useState(false);
     const [fav1,setFav]=React.useState(false);
@@ -35,7 +36,7 @@ const hideShowDel=()=>{
     const watchLater=(e)=>{
             console.log(e);
             axios.post(`http://localhost:3001/add${e}Later`,{
-                username:localStorage.getItem("username"),id
+                username:localStorage.getItem("username"),id,title:post.title,category:post.category,img:post.img,desc:post.desc
             }).then(data=>{
                 console.log(data);
                 if(data.status===200)

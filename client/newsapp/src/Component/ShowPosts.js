@@ -5,7 +5,7 @@ const context=React.createContext();
 export { context };
 function ShowPosts({posts})
 {
-   
+  
     const category=['All','Sports','Movies','Series','Trending','Crime',"Programming"];
    // console.log(category);
     let filterPost=[];

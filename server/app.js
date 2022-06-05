@@ -27,6 +27,39 @@ database:"newsapp"
 
 }
 ) 
+app.get("/getfav",checkLogin,(req,res)=>{
+    const sql= "SELECT * FROM fav WhERE username=?";
+const username=req.headers.username;
+//console.log(username);
+ db.query(sql,[username],(err,result)=>{
+     if(err===null)
+     {
+         const sq="SELECT * FROM posts WhERE username=?";
+         res.status(200).send(result);
+     }
+     else{ if(err.sqlMessage!==null)
+         res.status(400).send(err.sqlMessage);
+         else
+         res.status(500).status("Internal Server Error");
+     }
+ })
+})
+app.get("/getwatchlater",checkLogin,(req,res)=>{
+    const sql= "SELECT * FROM watchlater WhERE username=?";
+const username=req.headers.username;
+//console.log(username);
+ db.query(sql,[username],(err,result)=>{
+     if(err===null)
+     {
+         res.status(200).send(result);
+     }
+     else{ if(err.sqlMessage!==null)
+         res.status(400).send(err.sqlMessage);
+         else
+         res.status(500).status("Internal Server Error");
+     }
+ })
+})
 app.put("/updateuser",async (req,res)=>{
     //  console.log(req.files.file);
     let imageErrors={};
@@ -200,8 +233,8 @@ else
    
 });
 app.post ("/addWatchLater",(req,res)=>{
-    const sql="INSERT INTO `newsapp`.`watchlater` (`username`, `id`) VALUES (?,?)";
-    db.query(sql,[req.body.username,req.body.id],(err,result)=>{
+    const sql="INSERT INTO `newsapp`.`watchlater` (`username`, `id`,`title`,`category`,`img`,`desc`) VALUES (?,?,?,?,?,?)";
+    db.query(sql,[req.body.username,req.body.id,req.body.title,req.body.category,req.body.img,req.body.desc],(err,result)=>{
         if(err===null)
         {
            
@@ -217,8 +250,8 @@ app.post ("/addWatchLater",(req,res)=>{
     })
 })
 app.post ("/addfavLater",(req,res)=>{
-    const sql="INSERT INTO `newsapp`.`fav` (`username`, `id`) VALUES (?,?)";
-    db.query(sql,[req.body.username,req.body.id],(err,result)=>{
+    const sql="INSERT INTO `newsapp`.`fav` (`username`, `id`,`title`,`category`,`img`,`desc`) VALUES (?,?,?,?,?,?)";
+    db.query(sql,[req.body.username,req.body.id,req.body.title,req.body.category,req.body.img,req.body.desc],(err,result)=>{
         if(err===null)
         {
            
@@ -256,12 +289,12 @@ app.get("/findPost",(req,res)=>{
 app.post("/newpost",checkLogin,(req,res)=>{
     console.log(req.body);
     const imageErrors=imageUpload(req.files.file);
-    const {title,desc,category}=req.body;
+    const {title,desc,category,username}=req.body;
     const date=new Date(Date.now());
     const id=Date.now();
     if(!imageErrors.imageErrors){
     const quert="INSERT INTO `newsapp`.`posts` (`title`, `desc`, `date`, `id`,`category`,`username`,`img`) VALUES (?,?,?,?,?,?,?);";
-    db.query(quert,[title,desc,date.toLocaleString(),id,category,req.username,imageErrors.fileNa],(err,result)=>{
+    db.query(quert,[title,desc,date.toLocaleString(),id,category,username,imageErrors.fileNa],(err,result)=>{
         if(err===null){
             console.log("Abid");
         res.status(200).send({id});
@@ -277,7 +310,7 @@ app.post("/newpost",checkLogin,(req,res)=>{
 else
 {
     const err=imageErrors.imageErrors;
-  res.status(400).send(err);
+  res.status(400).send({image:err});
 }
     
 });
@@ -307,9 +340,21 @@ app.post("/login",async(req,res)=>{
    // const pass=bcrypt.compare()
 });
 app.put("/updatePost",(req,res)=>{
-    const {title,desc,category,img,userId}=req.body;
+    const {title,desc,category,userId}=req.body;
+    let imageErrors={};
+    console.log(req.files);
+    if(req.files!==null&&req.files!==undefined)
+      imageErrors = imageUpload(req.files.file);
+    else{
+      //  console.log(req.body);
+        const {fileNa}=req.body;
+         console.log(fileNa+"abid");
+    imageErrors.fileNa = fileNa;
+    imageErrors.imageErrors=false;
+    }
+    if(!imageErrors.imageErrors){
     const sql= "UPDATE posts SET `desc`=?, `title`=? ,  `category`=? , `img`=?  where `id`=?";
-    db.query(sql,[desc,title,category,img,userId],(err,result)=>{
+    db.query(sql,[desc,title,category,imageErrors.fileNa,userId],(err,result)=>{
         if(err===null)
         {
             res.status(200).send(result);
@@ -323,6 +368,12 @@ app.put("/updatePost",(req,res)=>{
     }
 
     })
+}
+else
+{
+    const err=imageErrors.imageErrors;
+  res.status(400).send({image:err});
+}
 })
 app.get("/showsidepost",(req,res)=>{
     const sql= "SELECT * FROM posts where category=?";

@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import style from '../asset/css/newpost.module.css';
-import code1 from '../asset/images/code1.jpg';
 import validatePostData from '../asset/js/validatePostData';
 import './Global';
 import Navigate1 from './Navigate';
@@ -22,7 +21,7 @@ const submit=()=>{
   setError(validatePostData({title,desc,file}));
   if(Object.keys(error).length===0){
     axios.post("http://localhost:3001/newpost",{
-      title,desc,category:cat,file
+      title,desc,category:cat,username:localStorage.getItem("username"),file
     },{
       headers:{
         "Authorization":`Bearer ${localStorage.getItem("token")}`,
@@ -34,7 +33,10 @@ const submit=()=>{
      setWhat(true);
    }).catch(err=>
      {
-      setError(err.response.data);
+       console.log(err);
+       if(err.response.data?.image);
+       error.image=err.response.data.image;
+      setError(error);
      });
   }
 }
@@ -63,9 +65,19 @@ const handleChange= (e)=>{
 }
 
 const update=()=>{
-  axios.put("http://localhost:3001/updatePost",{
-    title,desc,category:cat,img:code1,userId
-  },{
+  const data1=new FormData();
+  data1.append("title",title);
+  data1.append("desc",desc);
+  data1.append("category",cat);
+  console.log(file===null);
+  if(file!==null){
+    console.log(file);
+  data1.append("file",file);
+  }
+  else
+  data1.append("fileNa",fileName);
+  data1.append("userId",userId);
+  axios.put("http://localhost:3001/updatePost",data1,{
     headers:{
       "Authorization":`Bearer ${localStorage.getItem("token")}`,
     }

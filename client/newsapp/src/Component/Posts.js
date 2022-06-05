@@ -47,7 +47,7 @@ return(
             <img src={menu} width="20px" height="20px" ref={ref}  onClick={handleSideMenu} alt="Menu"/>
             </div>
         </div>
-        {sideMenu&&<Forward ref={sideRef}id={id} ed1={ed1} del1={del1}></Forward>}
+        {sideMenu&&<Forward ref={sideRef}id={id} ed1={ed1} post={post} del1={del1}></Forward>}
         <NavLink to={`/post/${post.id}`}className={({isActive})=> isActive?style.navLink:style.navLink}>
         <p>{des}</p>
         </NavLink>

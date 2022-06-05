@@ -196,8 +196,8 @@ a {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 .posts img {
-  width: 25%;
-  height: 50px;
+  max-width: 25%;
+  max-height: 100px;
   margin-top: 0%;
 }
 .span {
@@ -217,11 +217,12 @@ a {
   margin-bottom: 20px;
 }
 .img {
-  width: 50%;
+  max-width: 50%;
   text-align: center;
   margin-left: 25%;
-  height: 200px;
+  max-height: 300px;
 }
+
 .para {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   width: min-content;

@@ -1,16 +1,75 @@
 .home {
   margin-top: 10px;
-  margin-left: 20%;
-  margin-right: 20%;
+  display: flex;
+}
+.main {
+  width: 50%;
 }
 .profile {
   width: 100%;
+}
+.sidebar span {
+  margin-top: 5px;
+}
+.sidebar {
+  width: 25%;
+  font-weight: bold;
+  font-size: 110%;
+  margin-left: 0.4%;
+}
+.sidebar ul {
+  padding-left: 0px;
+}
+.sidebar hr {
+  width: 65%;
+}
+.recent :nth-child(1) {
+  margin-top: 10px;
+}
+.sidebar li {
+  padding: 5px;
+}
+.sidebar li:hover {
+  background-color: grey;
+  border-radius: 5px;
+}
+.recent li {
+  display: flex;
+  margin-bottom: 20px;
+}
+.sidebar h4 {
+  font-size: 130%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: red;
+}
+.recent img {
+  margin-top: 0px;
+}
+.recent li {
+  margin-top: 0px;
+}
+.recent span {
+  font-size: 100%;
+  margin-top: 15px;
+}
+.sidebar img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 5px;
 }
 .profile img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   float: left;
+}
+.sidebar li {
+  margin-bottom: 20px;
+  display: flex;
+  list-style-type: none;
+  text-align: left;
 }
 .button {
   display: inline-block;

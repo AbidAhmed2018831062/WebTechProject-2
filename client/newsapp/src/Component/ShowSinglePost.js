@@ -4,6 +4,12 @@ import { NavLink, useParams } from 'react-router-dom';
 import style from '../asset/css/showsinglepost.module.css';
 function ShowSinglePost()
 {
+   let savedPost= JSON.parse(localStorage.getItem("savePost"));
+   if(savedPost===null)
+   savedPost=[];
+  if(savedPost!==null&&savedPost.length===4)
+   savedPost.pop();
+    const savePost={};
         const {id}=useParams();
     const [post,setPost]=React.useState([]);
     const [sidePost,setSidePost]=React.useState([]);
@@ -18,6 +24,22 @@ function ShowSinglePost()
     console.log(res);
     if(status===200){
     setPost(res.data);
+    let d=false;
+        for(let i=0;i<savedPost.length;i++){
+            if(res.data[0].id===savedPost[i].id){
+                d=true;
+            }
+        }
+    if(d===false)
+    {
+        savePost.title=res.data[0].title;
+        savePost.img=res.data[0].img;
+        savePost.id=res.data[0].id;
+        console.log(savedPost);
+        savedPost.push(savePost);
+        localStorage.setItem("savePost",JSON.stringify(savedPost));
+    }
+    
     axios.get("http://localhost:3001/showsidepost",{
    params: {
     category:res.data[0].category,

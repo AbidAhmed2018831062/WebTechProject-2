@@ -6,7 +6,7 @@ const imageUpload=(file)=>{
     const ext=path.extname(file.name);
     const fileNa=file.name.replace(ext,"").split(" ").join("-")+Date.now()+ext;
     const uplo=`D:/AbidReactProjects/WebTechProject/client/newsapp/src/asset/images/${fileNa}`;
-    if(file.mimetype==="image/jpg"||file.mimetype==="image/jpeg"||file.mimetype==="image/png")
+    if(file.mimetype==="image/jpg"||file.mimetype==="image/jpeg"||file.mimetype==="image/png"||file.mimetype==="image/webp")
 {
     if(file.size<=2000000){
     file.mv(uplo,err=>{
