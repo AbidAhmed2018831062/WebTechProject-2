@@ -11,8 +11,10 @@ function Profile()
         (
             async ()=>{
       const res =await axios.get(`http://localhost:3001/getPosts`,
-        { params: { username: localStorage.getItem("username") } 
-      });
+      {headers:{
+        "Authorization":`Bearer ${localStorage.getItem("token")}`,
+          username:localStorage.getItem("username")
+      }});
       
       const status=res.status;
       console.log(res.data);

@@ -87,8 +87,9 @@ console.log(e);
         {
             
             axios.delete("http://localhost:3001/deletepost",{
-                params:{
-                    id
+                headers:{
+                    "Authorization":`Bearer ${localStorage.getItem("token")}`,
+                   id
                 }
             }).then(data=>{
                 console.log(data);

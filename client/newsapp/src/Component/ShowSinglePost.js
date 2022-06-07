@@ -16,11 +16,11 @@ function ShowSinglePost()
     let [what,setState]=useState(false);
     useEffect( ()=>{
        
-    axios.get("http://localhost:3001/showsinglepost",{
-   params: {
-    id,
-   }
- }).then((res)=>{const status=res.status;
+    axios.get("http://localhost:3001/showsinglepost",
+        {headers:{
+            "Authorization":`Bearer ${localStorage.getItem("token")}`,
+             id
+          }}).then((res)=>{const status=res.status;
     console.log(res);
     if(status===200){
     setPost(res.data);

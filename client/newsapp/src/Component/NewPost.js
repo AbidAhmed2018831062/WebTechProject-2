@@ -95,7 +95,10 @@ useEffect(()=>{
    if(userId!=="false")
    {
      axios.get("http://localhost:3001/findPost",
-     {params:{id:userId}}).then((data)=>{
+   {headers:{
+      "Authorization":`Bearer ${localStorage.getItem("token")}`,
+        id:userId
+    }}).then((data)=>{
        console.log(data);
        if(data.status===200)
        {

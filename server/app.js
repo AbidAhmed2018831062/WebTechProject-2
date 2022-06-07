@@ -34,7 +34,9 @@ const username=req.headers.username;
  db.query(sql,[username],(err,result)=>{
      if(err===null)
      {
-         const sq="SELECT * FROM posts WhERE username=?";
+        if(result.length===0)
+        res.status(404).send({msg:"You have not added anything on your favorite list"})
+        else
          res.status(200).send(result);
      }
      else{ if(err.sqlMessage!==null)
@@ -51,6 +53,9 @@ const username=req.headers.username;
  db.query(sql,[username],(err,result)=>{
      if(err===null)
      {
+        if(result.length===0)
+        res.status(404).send({msg:"You have not added anyhting on your watch later list"})
+        else
          res.status(200).send(result);
      }
      else{ if(err.sqlMessage!==null)
@@ -60,7 +65,7 @@ const username=req.headers.username;
      }
  })
 })
-app.put("/updateuser",async (req,res)=>{
+app.put("/updateuser",checkLogin,async (req,res)=>{
     //  console.log(req.files.file);
     let imageErrors={};
       const {name,username,email}=req.body;
@@ -80,7 +85,7 @@ app.put("/updateuser",async (req,res)=>{
       const quert="UPDATE users set `name`=?, `email`=?, `img`=? where username=?;";
       db.query(quert,[name,email,imageErrors.fileNa,username],(err,result)=>{
           if(err===null)
-          res.status(200).send(result);
+          res.status(200).send({msg:"Sucessful"});
           else{
               console.log(err);
            if(err.sqlMessage.includes("username")){
@@ -110,9 +115,13 @@ const username=req.headers.username;
  db.query(sql,[username],(err,result)=>{
      if(err===null)
      {
+         if(result.length===0)
+         res.status(404).send({msg:"User not found"}); 
+         else
          res.status(200).send(result);
      }
-     else{ if(err.sqlMessage!==null)
+     else{
+         if(err.sqlMessage!==null)
          res.status(400).send(err.sqlMessage);
          else
          res.status(500).status("Internal Server Error");
@@ -148,10 +157,14 @@ app.post("/validateuser",(req,res)=>{
 })
 app.get("/getPosts",(req,res)=>{
     const sql= "SELECT * FROM posts WhERE username=?";
-   const username=req.query.username;
+   const username=req.headers.username;
     db.query(sql,[username],(err,result)=>{
         if(err===null)
         {
+            if(result.length===0)
+            res.status(404).send({msg:"User not found"}); 
+            else
+
             res.status(200).send(result.reverse());
         }
         else{ if(err.sqlMessage!==null)
@@ -164,13 +177,15 @@ app.get("/getPosts",(req,res)=>{
 app.get("/showsinglepost",(req,res)=>{
     console.log("Abid");
 
-    const id= req.query.id;
+    const id= req.headers.id;
     console.log(id);
     const sql= "SELECT * FROM posts WHERE id=?";
     db.query(sql,[id],(err,result)=>{
         if(err===null)
         {
-            console.log(result);
+           if(result.length===0)
+           res.status(404).send({msg:"Post not found"})
+           else
             res.status(200).send(result);
         }
         else{ if(err.sqlMessage!==null)
@@ -182,7 +197,7 @@ app.get("/showsinglepost",(req,res)=>{
 
     })
 })
-app.get("/getAllPosts",(req,res)=>{
+app.get("/getAllPosts",checkLogin,(req,res)=>{
     const sql= "SELECT * FROM posts";
     db.query(sql,(err,result)=>{
         if(err===null)
@@ -209,7 +224,7 @@ app.post("/adduser",async (req,res)=>{
     const quert="INSERT INTO `newsapp`.`users` (`username`, `email`, `name`, `password`,`img`) VALUES (?,?,?,?,?);";
     db.query(quert,[username,email,name,hashedPassword,imageErrors.fileNa],(err,result)=>{
         if(err===null)
-        res.status(200).send(result);
+        res.status(200).send({msg:"Register Successful"});
         else{
             console.log(err);
          if(err.sqlMessage.includes("username")){
@@ -232,7 +247,7 @@ else
 }
    
 });
-app.post ("/addWatchLater",(req,res)=>{
+app.post ("/addWatchLater",checkLogin,(req,res)=>{
     const sql="INSERT INTO `newsapp`.`watchlater` (`username`, `id`,`title`,`category`,`img`,`desc`) VALUES (?,?,?,?,?,?)";
     db.query(sql,[req.body.username,req.body.id,req.body.title,req.body.category,req.body.img,req.body.desc],(err,result)=>{
         if(err===null)
@@ -249,7 +264,8 @@ app.post ("/addWatchLater",(req,res)=>{
         }
     })
 })
-app.post ("/addfavLater",(req,res)=>{
+
+app.post ("/addfavLater",checkLogin,(req,res)=>{
     const sql="INSERT INTO `newsapp`.`fav` (`username`, `id`,`title`,`category`,`img`,`desc`) VALUES (?,?,?,?,?,?)";
     db.query(sql,[req.body.username,req.body.id,req.body.title,req.body.category,req.body.img,req.body.desc],(err,result)=>{
         if(err===null)
@@ -267,15 +283,15 @@ app.post ("/addfavLater",(req,res)=>{
     })
 });
 
-app.get("/findPost",(req,res)=>{
-   // console.log(req.body);
+app.get("/findPost",checkLogin,(req,res)=>{
+    console.log(req.body);
     const sql="SELECT * FROM posts WHERE id=?";
-    db.query(sql,[req.query.id],(err,result)=>{
-        if(err===null)
+    db.query(sql,[req.headers.id],(err,result)=>{
+        if(err===null&&result.length!==0)
         {
-            
-           
-            res.status(200).send(result);
+            if(result.length===0)
+            res.status(404).send({msg:"Post not found"}); 
+           res.status(200).send(result);
         }
         else
         {
@@ -288,7 +304,13 @@ app.get("/findPost",(req,res)=>{
 })
 app.post("/newpost",checkLogin,(req,res)=>{
     console.log(req.body);
-    const imageErrors=imageUpload(req.files.file);
+    let imageErrors;
+    if(req.files!==null&&req.files!==undefined)
+     imageErrors=imageUpload(req.files.file);
+     else{
+        imageErrors.imageErrors=true;
+     res.status(400).send({msg:"Image needs to be uploaded"});
+     }
     const {title,desc,category,username}=req.body;
     const date=new Date(Date.now());
     const id=Date.now();
@@ -339,7 +361,7 @@ app.post("/login",async(req,res)=>{
     })
    // const pass=bcrypt.compare()
 });
-app.put("/updatePost",(req,res)=>{
+app.put("/updatePost",checkLogin,(req,res)=>{
     const {title,desc,category,userId}=req.body;
     let imageErrors={};
     console.log(req.files);
@@ -357,7 +379,7 @@ app.put("/updatePost",(req,res)=>{
     db.query(sql,[desc,title,category,imageErrors.fileNa,userId],(err,result)=>{
         if(err===null)
         {
-            res.status(200).send(result);
+            res.status(200).send({msg:"Successful"});
         }
         else
         {
@@ -395,14 +417,19 @@ app.get("/profile",checkLogin,async(req,res)=>{
 res.status(200).send(req.username);
 });
 
-app.delete("/deletepost",(req,res)=>{
+app.delete("/deletepost",checkLogin,(req,res)=>{
     const sql= "DELETE FROM posts where id=?";
-    db.query(sql,[req.query.id],(err,result)=>{
-        console.log(req.query.id);
+    db.query(sql,[req.headers.id],(err,result)=>{
+        console.log(req.headers.id);
         console.log(result);
         if(err===null)
         {
-            res.status(200).send(result);
+            if(result.affectedRows===0)
+            {
+                res.status(400).send({msg:"The post has already been deleted"});
+            }
+            else
+            res.status(200).send({msg:"Post deleted successfully"});
         }
         else{ if(err.sqlMessage!==null)
             res.status(400).send(err.sqlMessage);
