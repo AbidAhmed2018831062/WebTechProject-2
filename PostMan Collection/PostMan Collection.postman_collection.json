@@ -1,0 +1,503 @@
+{
+	"info": {
+		"_postman_id": "64432bcb-480d-440c-9320-d152f6224754",
+		"name": "PostMan Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20223899"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "FindPost",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "id",
+								"value": "1654375888789",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/findPost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"findPost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "username",
+								"value": "lionelmessi10",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/getUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"getUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/getAllPosts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"getAllPosts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "'text/json'",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "username",
+								"value": "lionelmessi10",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/getPosts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"getPosts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show SIngle Post",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "id",
+								"value": "1654375888789",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/showsinglepost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"showsinglepost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Watch later",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "username",
+								"value": "lionelmessi10",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/getwatchlater",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"getwatchlater"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Fav",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "username",
+								"value": "lionelmessi10",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/getfav",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"getfav"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "New Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Messi wins his seventh balon d or\",\r\n    \"cat\":\"Sports\",\r\n    \"desc\":\"Even after moving to PSG from Barcelona Lionel Messi has not lost his touch and wins his seventh balon d or after winning his much awaited first major international trophy on june 11.\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/newpost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"newpost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Abid Ahmed",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "abid123",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "randomemail@123",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/H:/Downloads/ba7c1e75a03b42ed8fb570baf3c0c632.jpeg"
+								},
+								{
+									"key": "password",
+									"value": "iamabid123ASD!2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/adduser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"adduser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Watch Later",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"username\":\"lionelmessi10\",\r\n\"title\":\"Failan: A criminally underrated movie\",\r\n\"desc\":\"Can you love a person whom you have watched only in pictures or can you love someone by just reading the letters of that person?This movie proves love does not know any bound. A wonderful movie with heartbreaking scenes which just wrenches your heart. The love that Kang Jae and Failan had or have for them will just make you fall apart even though they did not meet in person and they did not have a single scene together. It showcases the hardship and gratefullness of Failan in a very heart wrenching way. Wait and wait to see the person she loves make you feel like you have to do something for Failan so that she can meet Kang Jae.A very nicely directed movie which needs to get more and more appreciation from the critics and fans. Rating: 9/10\",\r\n\"category\":\"Movie\",\r\n\"img\":\"failan11654375888789.jpg\",\r\n\"id\":\"1654375888789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/addWatchLater",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"addWatchLater"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fav Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"username\":\"lionelmessi10\",\r\n\"title\":\"Failan: A criminally underrated movie\",\r\n\"desc\":\"Can you love a person whom you have watched only in pictures or can you love someone by just reading the letters of that person?This movie proves love does not know any bound. A wonderful movie with heartbreaking scenes which just wrenches your heart. The love that Kang Jae and Failan had or have for them will just make you fall apart even though they did not meet in person and they did not have a single scene together. It showcases the hardship and gratefullness of Failan in a very heart wrenching way. Wait and wait to see the person she loves make you feel like you have to do something for Failan so that she can meet Kang Jae.A very nicely directed movie which needs to get more and more appreciation from the critics and fans. Rating: 9/10\",\r\n\"category\":\"Movie\",\r\n\"img\":\"failan11654375888789.jpg\",\r\n\"id\":\"1654375888789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/addFavLater",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"addFavLater"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-type",
+								"value": "\"multipart/form-data\"",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Lionel Messi",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "lionelmessi10",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "lionelmessi10@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "fileNa",
+									"value": "messiflying1654380357307.jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/updateuser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"updateuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Failan: A criminally underrated movie",
+									"type": "text"
+								},
+								{
+									"key": "desc",
+									"value": "Can you love a person whom you have watched only in pictures or can you love someone by just reading the letters of that person?\n\nThis movie proves love does not know any bound. A wonderful movie with heartbreaking scenes which just wrenches your heart. The love that Kang Jae and Failan had or have for them will just make you fall apart even though they did not meet in person and they did not have a single scene together. \n\nIt showcases the hardship and gratefullness of Failan in a very heart wrenching way. Wait and wait to see the person she loves make you feel like you have to do something for Failan so that she can meet Kang Jae.\n\nA very nicely directed movie which needs to get more and more appreciation from the critics and fans.\n\nRating: 9/10",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Movie",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/updatePost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"updatePost"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "id",
+								"value": "1654600185216",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/deletepost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"deletepost"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxpb25lbG1lc3NpMTAiLCJuYW1lIjoiTGlvbmVsIEFuZGVycyBNZXNzaSIsImlhdCI6MTY1NDM4MjgwMH0.jhXz5pm6gyBFT40XkWyzClX14fWwvlieSUZLskUeeEY",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
