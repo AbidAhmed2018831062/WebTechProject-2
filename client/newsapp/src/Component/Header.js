@@ -20,7 +20,9 @@ function Header()
     //let activeClassName = "underline";
 return(
    <nav className={styles.nav}>
+     <NavLink to="/home">
      <h3>{appName}</h3>
+     </NavLink>
      <div className={styles.sea}>
        <div className={styles.flex4}>
      <input ref={ref}className={styles.int} value={search} onChange={searchHandler}type="search"></input>

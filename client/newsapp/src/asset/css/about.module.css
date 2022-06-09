@@ -1,25 +1,45 @@
 .about {
-  text-align: center;
-  padding-top: 5%;
+  padding-top: 4%;
 }
-.about h1 {
+.about h3 {
   font-size: 220%;
   margin-bottom: 30px;
+  margin-left: 0%;
 }
 .div {
   word-wrap: break-word;
-  text-align: center;
+  z-index: 1;
+  background-color: #303030;
+  margin-left: 20%;
+  margin-right: 20%;
+  display: flex;
+}
+.div .write {
+  width: 75%;
+  padding-left: 2%;
+  padding-right: 4%;
+  padding-top: 2%;
+}
+.write a {
+  margin-top: 20px;
+  padding: 8px 25px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+.div img {
+  width: 25%;
+  height: inherit;
 }
 .div pre {
-  padding-left: 20%;
-  padding-right: 20%;
   font-size: 120%;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
-.div p {
+.div pre {
   margin-top: 30px;
   font-size: 120%;
   margin-top: -16px;
+  line-height: 1.74;
   display: inline-block;
 }
 .flex {
@@ -39,7 +59,7 @@
   margin-right: 20px;
 }
 .foot {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   width: 100%;
   padding: 30px;
