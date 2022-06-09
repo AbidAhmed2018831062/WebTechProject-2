@@ -19,7 +19,6 @@ if(status===200)
 setToken(true);
 })();
 });
- console.log(token);
    return (
      <div>
      {token? <Outlet/>:<LogIn />}

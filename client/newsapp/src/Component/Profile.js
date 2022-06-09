@@ -17,12 +17,12 @@ function Profile()
       }});
       
       const status=res.status;
-      console.log(res.data);
+
       if(status===200)
      setPosts(res.data);
             })();
     },[]);
-console.log(`../asset/images/${location}`);
+
 return(
     <div className={style.profile}>
     <div className={style.pro}>

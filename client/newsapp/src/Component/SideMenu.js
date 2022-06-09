@@ -9,7 +9,7 @@ import fav from '../asset/images/fav.png';
 import { context } from './ShowPosts';
 function SideMenu({ed1,del1,id,post},inputRef)
 {
-    //console.log(post);
+    
     const setPostsFromOutside=useContext(context);
     const [wat,setWat]=React.useState(false);
     const [fav1,setFav]=React.useState(false);
@@ -34,11 +34,11 @@ const hideShowDel=()=>{
     },5000)
 }
     const watchLater=(e)=>{
-            console.log(e);
+        
             axios.post(`http://localhost:3001/add${e}Later`,{
                 username:localStorage.getItem("username"),id,title:post.title,category:post.category,img:post.img,desc:post.desc
             }).then(data=>{
-                console.log(data);
+               
                 if(data.status===200)
                 {
                     setText(`The post has been successfully added to your ${e} list`);
@@ -51,7 +51,7 @@ const hideShowDel=()=>{
                     
                 }
             }).catch((err)=>{
-                console.log(err);
+              
            if(err.response.status===400){
             
             setText(`The post has been already saved to your ${e} list`);
@@ -76,7 +76,7 @@ const hideShowDel=()=>{
             })
         }
     const deleteHandler=(e)=>{
-console.log(e);
+
         if(e==="cancel")
         {
             setDel(false);
@@ -92,7 +92,7 @@ console.log(e);
                    id
                 }
             }).then(data=>{
-                console.log(data);
+              
                 if(data.status===200)
                 {
                     setText("Your news has been deleted successfully");
@@ -101,7 +101,7 @@ console.log(e);
                    
                 }
             }).catch((err)=>{
-                console.log(err);
+               
            if(err.response.status===400){
             
             setText(`The post does not exist`);

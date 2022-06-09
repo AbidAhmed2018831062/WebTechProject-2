@@ -19,7 +19,7 @@
            errors.password='Password needs to have one uppercase, lowercase, special character and atelast 8characters';
        }
     }
-   // console.log("Abid");
+   
     return errors;
 }
 module.exports=validateUser;

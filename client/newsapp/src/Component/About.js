@@ -15,7 +15,7 @@ return(
         <h3>Hey This is me Abid Ahmed</h3>
         <pre>I am a student of Shahjalal University of Science and Technology, Sylhet. Love to code, watch football, movies, series and sleep. Messi is my role model and the person I admire the most. <br></br><br></br>
         
-        This "Trendews" web app is a semester final project of our course "Web Tech". Trendews was made with the help of React as a frontend, for the backend Node.js and Express.js was used and MySql was used as a database for the project.
+        "Trendews" web app is the semester final project of our course "Web Tech". Trendews was made with the help of React as a frontend, for the backend Node.js and Express.js was used and MySql was used as a database for the project.
         
         </pre>
         <a href="https://github.com/AbidAhmed2018831062?tab=repositories">Watch More of My Works here</a>

@@ -34,12 +34,11 @@ useEffect(()=>{
       }
     }).then(data=>{
         img=data.data[0].img;
-        console.log(data);
+       
         setEmail(data.data[0].email);
         setFileName(data.data[0].img);
         setName(data.data[0].name);
     }).catch((err)=>{
-        console.log(err);
     })
 },[username,fileName]);
 const submit=(e)=>{
@@ -47,7 +46,6 @@ const submit=(e)=>{
   setErrors(validateEdit({name,username,email,password,file}));
   setFree(true);
   if(Object.keys(errors).length===0&&errorFree){
-    console.log("hi");
     const data1=new FormData();
     data1.append("name",name);
     data1.append("email",email);
@@ -56,22 +54,17 @@ const submit=(e)=>{
     data1.append("file",file);
     else
     data1.append("fileNa",fileName);
- //   console.log(file);
     axios.put("http://localhost:3001/updateuser",data1,{headers:{
       'Content-type':"multipart/form-data"
     }}).then((data)=>{
-      console.log(data);
       if(data.status===200){
-    //console.log(data);
       setWhat(true);
       }
       
    }).catch(err=>
      {
-       console.log(err);
       if(err.response.data?.username)
       {
-       // console.log("Hey I am Abid")
         setErrors({username:"Username Already exists"});
       }
       else if(err.response.data?.email)
@@ -87,7 +80,6 @@ const submit=(e)=>{
 
 }
 useEffect(()=>{
- // console.log(errorFree);
   if(Object.keys(errors).length===0)
   console.log(errors);
 },[errors]);

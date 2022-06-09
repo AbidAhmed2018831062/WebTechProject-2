@@ -8,7 +8,6 @@ import Navigate1 from './Navigate';
 function NewPost()
 {
  const {userId}=useParams();
-  console.log(userId+"Abid");
   const [fileName,setFileName]=React.useState("");
   const [error,setError]=React.useState([]);
 const [file,setFile]=React.useState("");
@@ -28,12 +27,12 @@ const submit=()=>{
         'Content-type':"multipart/form-data"
       }
     }).then((res)=>{
-      console.log(res);
+      
       setId(res.data.id);
      setWhat(true);
    }).catch(err=>
      {
-       console.log(err);
+       
        if(err.response.data?.image);
        error.image=err.response.data.image;
       setError(error);
@@ -41,16 +40,16 @@ const submit=()=>{
   }
 }
  const imageChange=(e)=>{
-  console.log(e);
+ 
   setFileName(e.target.files[0].name);
   setFile(e.target.files[0]);
-  console.log(file);
+ 
 }
 const handleChange= (e)=>{
   const change=e.target.value;
  if(e.target.name==="title")
  {
-     console.log(e);
+    
      setTitle(change);
  }
  else if(e.target.name==="desc")
@@ -69,9 +68,9 @@ const update=()=>{
   data1.append("title",title);
   data1.append("desc",desc);
   data1.append("category",cat);
-  console.log(file?.name);
+ 
   if(file?.name){
-    console.log("Hello");
+   
   data1.append("file",file);
   }
   else
@@ -82,12 +81,12 @@ const update=()=>{
       "Authorization":`Bearer ${localStorage.getItem("token")}`,
     }
   }).then((res)=>{
-    console.log(res);
+  
     setId(userId);
    setWhat(true);
  }).catch(err=>
    {
-     console.log(err);
+   
    });
 }
 
@@ -99,7 +98,7 @@ useEffect(()=>{
       "Authorization":`Bearer ${localStorage.getItem("token")}`,
         id:userId
     }}).then((data)=>{
-       console.log(data);
+     
        if(data.status===200)
        {
          setCat(data.data[0].category);
@@ -108,7 +107,7 @@ useEffect(()=>{
          setFileName(data.data[0].img);
        }
      }).catch((err)=>{
-       console.log(err);
+     
      })
    }
 },[userId])

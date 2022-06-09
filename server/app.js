@@ -33,7 +33,7 @@ database:"newsapp"
 app.get("/getfav",checkLogin,cacheSet,(req,res)=>{
     const sql= "SELECT * FROM fav WhERE username=?";
 const username=req.headers.username;
-//console.log(username);
+
  db.query(sql,[username],(err,result)=>{
      if(err===null)
      {
@@ -41,7 +41,7 @@ const username=req.headers.username;
         res.status(404).send({msg:"You have not added anything on your favorite list"})
         else{
             cac.set(req.path,result);
-            //console.log(req.path);
+           
          res.status(200).send(result);
          }
      }
@@ -56,7 +56,7 @@ const username=req.headers.username;
 app.get("/getwatchlater",checkLogin,cacheSet,(req,res)=>{
     const sql= "SELECT * FROM watchlater WhERE username=?";
 const username=req.headers.username;
-//console.log(username);
+
  db.query(sql,[username],(err,result)=>{
      if(err===null)
      {
@@ -75,30 +75,29 @@ const username=req.headers.username;
  })
 })
 app.put("/updateuser",checkLogin,async (req,res)=>{
-    //  console.log(req.files.file);
+   
     let imageErrors={};
       const {name,username,email}=req.body;
       if(req.files!==null)
       imageErrors = imageUpload(req.files.file);
     else{
-      //  console.log(req.body);
+    
         const {fileNa}=req.body;
-        // console.log(fileNa);
+     
     imageErrors.fileNa = fileNa;
     imageErrors.imageErrors=false;
     }
-   // console.log(imageErrors)
-     // console.log(imageErrors.fileNa+"Abid");
+ 
       if(!imageErrors.imageErrors){
-         // console.log(imageErrors.fileNa)
+     
       const quert="UPDATE users set `name`=?, `email`=?, `img`=? where username=?;";
       db.query(quert,[name,email,imageErrors.fileNa,username],(err,result)=>{
           if(err===null)
           res.status(200).send({msg:"Sucessful"});
           else{
-             // console.log(err);
+           
            if(err.sqlMessage.includes("username")){
-               //console.log("Hey I am Abid")
+               
            res.status(400).send({username:err.sqlMessage});
            }
        else if(err.sqlMessage.includes("email"))
@@ -107,11 +106,11 @@ app.put("/updateuser",checkLogin,async (req,res)=>{
            res.status(500).send("Server Error");
           }
       })
-    //  console.log(req.files);
+    
   }
   else
   {
-     // console.log(imageErrors);
+  
       errors.imError=imageErrors.imageErrors;
       res.status(400).send(errors);
   }
@@ -120,7 +119,7 @@ app.put("/updateuser",checkLogin,async (req,res)=>{
 app.get("/getuser",checkLogin,cacheSet,(req,res)=>{
 const sql= "SELECT * FROM users WhERE username=?";
 const username=req.headers.username;
-//console.log(username);
+
  db.query(sql,[username],(err,result)=>{
      if(err===null)
      {
@@ -188,10 +187,10 @@ app.get("/getPosts",cacheSet,(req,res)=>{
     })
 });
 app.get("/showsinglepost",cacheSet,(req,res)=>{
-    //console.log("Abid");
+    
 
     const id= req.headers.id;
-   // console.log(id);
+
     const sql= "SELECT * FROM posts WHERE id=?";
     db.query(sql,[id],(err,result)=>{
         if(err===null)
@@ -226,12 +225,11 @@ app.get("/getAllPosts",checkLogin,(req,res)=>{
     })
 })
 app.post("/adduser",async (req,res)=>{
-  //  console.log(req.files.file);
+
     const {name,username,email,password}=req.body;
     const errors=validateUser({name,username,email,password});
   let imageErrors= imageUpload(req.files.file);
- // console.log(imageErrors)
-   // console.log(imageErrors.fileNa+"Abid");
+
     if(Object.keys(errors).length===0&&!imageErrors.imageErrors){
     const hashedPassword = await bcrypt.hash(password,10);
     const quert="INSERT INTO `newsapp`.`users` (`username`, `email`, `name`, `password`,`img`) VALUES (?,?,?,?,?);";
@@ -239,9 +237,9 @@ app.post("/adduser",async (req,res)=>{
         if(err===null)
         res.status(200).send({msg:"Register Successful"});
         else{
-            //console.log(err);
+          
          if(err.sqlMessage.includes("username")){
-             //console.log("Hey I am Abid")
+           
          res.status(400).send({username:err.sqlMessage});
          }
      else if(err.sqlMessage.includes("email"))
@@ -250,11 +248,11 @@ app.post("/adduser",async (req,res)=>{
          res.status(500).send("Server Error");
         }
     })
-  //  console.log(req.files);
+
 }
 else
 {
-    //console.log(imageErrors);
+    
     errors.imError=imageErrors.imageErrors;
     res.status(400).send(errors);
 }
@@ -297,7 +295,7 @@ app.post ("/addfavLater",checkLogin,(req,res)=>{
 });
 
 app.get("/findPost",checkLogin,(req,res)=>{
-   // console.log(req.body);
+ 
     const sql="SELECT * FROM posts WHERE id=?";
     db.query(sql,[req.headers.id],(err,result)=>{
         if(err===null&&result.length!==0)
@@ -319,7 +317,7 @@ app.get("/findPost",checkLogin,(req,res)=>{
     })
 })
 app.post("/newpost",checkLogin,(req,res)=>{
-   // console.log(req.body);
+  
     let imageErrors;
     if(req.files!==null&&req.files!==undefined)
      imageErrors=imageUpload(req.files.file);
@@ -334,7 +332,7 @@ app.post("/newpost",checkLogin,(req,res)=>{
     const quert="INSERT INTO `newsapp`.`posts` (`title`, `desc`, `date`, `id`,`category`,`username`,`img`) VALUES (?,?,?,?,?,?,?);";
     db.query(quert,[title,desc,date.toLocaleString(),id,category,username,imageErrors.fileNa],(err,result)=>{
         if(err===null){
-           // console.log("Abid");
+         
         res.status(200).send({id});
         }
         else{
@@ -358,7 +356,7 @@ app.post("/login",async(req,res)=>{
     db.query(sql,[login],async (err,result)=>{
         if(err===null&&result.length>0)
         {
-           // console.log(result);
+         
            const pass=result[0].password;
            const isRightPassword=await bcrypt.compare(password,pass);
            if(isRightPassword){
@@ -366,7 +364,7 @@ app.post("/login",async(req,res)=>{
                    username:login,
                    name:result[0].name
                },process.env.JWT_SECRET)
-              // console.log(token+"abid");
+            
            res.status(200).send({token:token,img:result[0].img});
             }
            else
@@ -380,13 +378,13 @@ app.post("/login",async(req,res)=>{
 app.put("/updatePost",checkLogin,(req,res)=>{
     const {title,desc,category,userId}=req.body;
     let imageErrors={};
-    //console.log(req.files);
+    
     if(req.files!==null&&req.files!==undefined)
       imageErrors = imageUpload(req.files.file);
     else{
-      //  console.log(req.body);
+     
         const {fileNa}=req.body;
-       //  console.log(fileNa+"abid");
+      
     imageErrors.fileNa = fileNa;
     imageErrors.imageErrors=false;
     }
@@ -429,15 +427,14 @@ app.get("/showsidepost",(req,res)=>{
     })
 })
 app.get("/profile",checkLogin,async(req,res)=>{
-    //console.log("I am abid123");
+  
 res.status(200).send(req.username);
 });
 
 app.delete("/deletepost",checkLogin,(req,res)=>{
     const sql= "DELETE FROM posts where id=?";
     db.query(sql,[req.headers.id],(err,result)=>{
-      //  console.log(req.headers.id);
-        //console.log(result);
+      
         if(err===null)
         {
             if(result.affectedRows===0)
@@ -457,7 +454,7 @@ app.delete("/deletepost",checkLogin,(req,res)=>{
 })
 
 const errorHandler = (err, req, res, next) => {
-    //console.log(err);
+   
     if (res.headersSent) {
       return next(err);
     }

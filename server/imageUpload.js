@@ -11,7 +11,7 @@ const imageUpload=(file)=>{
     if(file.size<=2000000){
     file.mv(uplo,err=>{
         if(err){
-            console.log(err);
+          
        return {imageErrors:err}
         }
         

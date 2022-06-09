@@ -16,13 +16,13 @@ function WatchandFav()
         username:localStorage.getItem("username")
       }
     }).then((data)=>{
-        console.log(data);
+      
         if(data.status===200)
         {
             setPosts(data.data);
         }
     }).catch(err=>{
-        console.log(err);
+       
     })
 }
 else
@@ -32,17 +32,17 @@ else
         username:localStorage.getItem("username")
       }
     }).then((data)=>{
-        console.log(data);
+       
         if(data.status===200)
         {
             setPosts(data.data);
         }
     }).catch(err=>{
-        console.log(err);
+       
     })
 }
   },[what]);
-  console.log(posts);
+
 return(
     <div>
      {posts.length===0?<div className={style.main}>

@@ -8,29 +8,14 @@ function Posts({post})
     const user=localStorage.getItem("username");
 
     const ed1=post.username===user?true:false,del1=post.username===user?true:false;
-    console.log(user,post.username);
     const ref=useRef(null);
     const sideRef=useRef(null);
     const [sideMenu,setSideMenu]=React.useState(false);
     const {img,desc,id,title,date}=post;
     const des=desc.substring(0, 200)+"...read more";
-    /*useEffect(()=>{
-        const closeSide=(e)=>{
-            if(e.path[0]!==ref.current&&e.path[2]!==sideRef)
-            {
-                console.log(e);
-                console.log(sideRef);
-                setSideMenu(false);
-                setButton={()=> setSideMenu((prev)=>prev?false:true)}
-            }
-            
-        }
-        document.body.addEventListener("click",closeSide);
-        return ()=> document.body.removeEventListener("click",closeSide);
-    },[])*/
+   
    const handleSideMenu=()=>{
      setSideMenu((prev)=> prev?false:true);
-      console.log("clicked")
    }
 return(
     <>

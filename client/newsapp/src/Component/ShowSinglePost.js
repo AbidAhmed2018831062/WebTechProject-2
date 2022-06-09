@@ -21,7 +21,7 @@ function ShowSinglePost()
             "Authorization":`Bearer ${localStorage.getItem("token")}`,
              id
           }}).then((res)=>{const status=res.status;
-    console.log(res);
+  
     if(status===200){
     setPost(res.data);
     let d=false;
@@ -35,7 +35,7 @@ function ShowSinglePost()
         savePost.title=res.data[0].title;
         savePost.img=res.data[0].img;
         savePost.id=res.data[0].id;
-        console.log(savedPost);
+       
         savedPost.push(savePost);
         localStorage.setItem("savePost",JSON.stringify(savedPost));
     }
@@ -47,17 +47,16 @@ function ShowSinglePost()
 if(data.status===200)
 {
     setSidePost(data.data.slice(0,7));
-    console.log(data);
     setState(true);
   
 }
    })
   
     }
-    //console.log(res.data+"Abid");
+
 });
     },[id,what]);
-//console.log(post[0].title);
+
 return(
     <> {what&&<div className={style.cona}>
     <div className={style.mainPosts}>

@@ -17,7 +17,7 @@ useEffect(()=>{
   }});
   
   const status=res.status;
-  console.log(res.data);
+ 
   if(status===200){
       let po=[];
 for(let i=0;i<res.data.length;i++){

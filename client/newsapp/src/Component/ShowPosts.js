@@ -28,7 +28,7 @@ function ShowPosts({posts})
         showDel(true);
     }
     const category=['All','Sports','Movies','Series','Trending','Crime',"Programming"];
-   // console.log(category);
+
     let filterPost=[];
    const [posts1,setPosts]=useState([]);
    useEffect(()=>{
@@ -87,8 +87,8 @@ return(
          {
              
            posts1.map((element)=>{
-              return ( <div>
-              <Posts post={element}/>
+              return ( <div key={element.id}>
+              <Posts  post={element}/>
               </div>
               )
            })

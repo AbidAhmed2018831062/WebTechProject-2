@@ -13,14 +13,10 @@ const submit=()=>{
   axios.post("http://localhost:3001/login",{
    login, password
   }).then((data)=>{
-    console.log(data);
-    console.log(data.status);
     if(data.status===200){
-      console.log(data.data.token);
       localStorage.setItem('token',data.data.token);
       localStorage.setItem("username",login);
       localStorage.setItem("image",data.data.img);
-      console.log(error);
     setWhat(true);
     }
  }).catch(err=>

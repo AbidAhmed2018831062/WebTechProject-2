@@ -29,39 +29,36 @@ const handleChange= (e)=>{
   setPass(change);
 }
 const imageChange=(e)=>{
-  console.log(e);
   setFileName(e.target.files[0].name);
   setFile(e.target.files[0]);
-  console.log(file);
 }
 const submit=(e)=>{
   e.preventDefault();
   setErrors(validateForm({name,username,email,password,file}));
   setFree(true);
   if(Object.keys(errors).length===0&&errorFree){
-    console.log("hi");
+  
     const data1=new FormData();
     data1.append("name",name);
     data1.append("username",username);
     data1.append("email",email);
     data1.append("password",password);
     data1.append("file",file);
- //   console.log(file);
     axios.post("http://localhost:3001/adduser",data1,{headers:{
       'Content-type':"multipart/form-data"
     }}).then((data)=>{
-      console.log(data);
+      
       if(data.status===200){
-    //console.log(data);
+    
       setWhat(true);
       }
       
    }).catch(err=>
      {
-       console.log(err);
+     
       if(err.response.data?.username)
       {
-       // console.log("Hey I am Abid")
+    
         setErrors({username:"Username Already exists"});
       }
       else if(err.response.data?.email)
@@ -77,7 +74,7 @@ const submit=(e)=>{
 
 }
 useEffect(()=>{
- // console.log(errorFree);
+
   if(Object.keys(errors).length===0)
   console.log(errors);
 },[errors]);

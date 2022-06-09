@@ -5,7 +5,6 @@ export default function changeUserName(username){
 
 export function returnUserName()
 {
-    console.log(global.username+"Abid");
     return global.username;
 }
 let appName="Trendews";

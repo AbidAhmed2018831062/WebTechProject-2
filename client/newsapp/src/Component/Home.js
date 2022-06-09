@@ -20,7 +20,6 @@ function Home()
       }});
       
       const status=res.status;
-      console.log(res.data);
       if(status===200)
      setPosts(res.data);
             })();
