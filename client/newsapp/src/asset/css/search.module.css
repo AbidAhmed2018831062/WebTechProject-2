@@ -1,0 +1,20 @@
+.search {
+  padding-left: 25%;
+  padding-right: 25%;
+}
+.search h1 {
+  font-size: 150%;
+  text-align: center;
+  color: red;
+  padding-left: 10%;
+}
+.search .p {
+  font-size: 130%;
+  margin-bottom: 20px;
+}
+.search .navLink1 {
+  padding: 10px 25px;
+  margin-top: 20px;
+  background: white;
+  color: black;
+}

@@ -11,6 +11,7 @@ import NewPost from './Component/NewPost';
 import PrivateOutlet from './Component/PrivateOutlet';
 import Profile from './Component/Profile';
 import Register from './Component/Register';
+import SearchPage from './Component/SearchPage';
 import ShowSinglePost from './Component/ShowSinglePost';
 import WatchandFav from './Component/WatchandFav';
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <Route path="post/:id" element={<ShowSinglePost />}></Route>
       <Route path="watchandfav/:what" element={<WatchandFav />}></Route>
       <Route path="about" element={<About />}></Route>
+      <Route path="search/:search" element={<SearchPage/>}></Route>
       <Route path="*" element={<ErrorPage />}></Route>
      </Route>
      </Routes>

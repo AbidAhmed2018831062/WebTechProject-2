@@ -17,8 +17,8 @@
 .ul,
 ul {
   display: inline-block;
-  width: 90%;
-  padding-left: 18%;
+  width: 70%;
+  padding-left: 9%;
 }
 .li {
   display: inline-block;
@@ -32,8 +32,28 @@ ul {
   font-size: 170%;
   margin-left: 20px;
 }
-button {
-  border: 1px solid grey;
-  background: none;
-  margin-top: -10px;
+.sea {
+  margin-left: 10px;
+  width: 15%;
+  display: inline-block;
+  padding: 0px;
+  height: auto;
+  border-radius: 5px;
+  background-color: #3a3b3c;
+}
+.flex4 {
+  display: flex;
+}
+.sea .int {
+  display: inline-block;
+  border: none;
+  width: 80%;
+  padding: 3px;
+  font-size: 110%;
+  border: none;
+  color: grey;
+  background-color: #3a3b3c;
+}
+.flex4 img {
+  margin-top: 10px;
 }
