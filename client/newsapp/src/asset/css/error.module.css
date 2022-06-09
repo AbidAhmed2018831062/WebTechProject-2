@@ -1,0 +1,23 @@
+.cont {
+  background: url("../images/back.png");
+  height: 683px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 10%;
+  text-align: center;
+}
+.h1 {
+  font-size: 420%;
+  margin-bottom: 20px;
+}
+.h4 {
+  font-size: 190%;
+  line-height: 1.74;
+}
+.bt {
+  background-color: white;
+  color: black;
+  padding: 15px 45px;
+  width: auto;
+  border: none;
+}

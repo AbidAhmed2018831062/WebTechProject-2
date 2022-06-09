@@ -15,7 +15,9 @@ function Home()
     useEffect(()=>{
         (
             async ()=>{
-      const res =await axios.get("http://localhost:3001/getAllPosts");
+      const res =await axios.get("http://localhost:3001/getAllPosts",{headers:{
+            Authorization:`Bearer ${localStorage.getItem("token")}`,
+      }});
       
       const status=res.status;
       console.log(res.data);

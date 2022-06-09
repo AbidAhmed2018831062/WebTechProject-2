@@ -1,6 +1,9 @@
 const express=require("express");
 const mysql=require('mysql');
 const fs=require("fs");
+
+const {cacheSet}=require("./cache");
+const {cac}=require("./cache");
 const checkLogin=require("./checkAuth")
 const bcrypt=require('bcrypt');
 const fileUpload=require("express-fileupload");
@@ -27,7 +30,7 @@ database:"newsapp"
 
 }
 ) 
-app.get("/getfav",checkLogin,(req,res)=>{
+app.get("/getfav",checkLogin,cacheSet,(req,res)=>{
     const sql= "SELECT * FROM fav WhERE username=?";
 const username=req.headers.username;
 //console.log(username);
@@ -36,17 +39,21 @@ const username=req.headers.username;
      {
         if(result.length===0)
         res.status(404).send({msg:"You have not added anything on your favorite list"})
-        else
+        else{
+            cac.set(req.path,result);
+            //console.log(req.path);
          res.status(200).send(result);
+         }
      }
-     else{ if(err.sqlMessage!==null)
+     else{ 
+         if(err.sqlMessage!==null)
          res.status(400).send(err.sqlMessage);
          else
          res.status(500).status("Internal Server Error");
      }
  })
 })
-app.get("/getwatchlater",checkLogin,(req,res)=>{
+app.get("/getwatchlater",checkLogin,cacheSet,(req,res)=>{
     const sql= "SELECT * FROM watchlater WhERE username=?";
 const username=req.headers.username;
 //console.log(username);
@@ -55,8 +62,10 @@ const username=req.headers.username;
      {
         if(result.length===0)
         res.status(404).send({msg:"You have not added anyhting on your watch later list"})
-        else
+        else{
+            cac.set(req.path,result);
          res.status(200).send(result);
+        }
      }
      else{ if(err.sqlMessage!==null)
          res.status(400).send(err.sqlMessage);
@@ -81,13 +90,13 @@ app.put("/updateuser",checkLogin,async (req,res)=>{
    // console.log(imageErrors)
      // console.log(imageErrors.fileNa+"Abid");
       if(!imageErrors.imageErrors){
-          console.log(imageErrors.fileNa)
+         // console.log(imageErrors.fileNa)
       const quert="UPDATE users set `name`=?, `email`=?, `img`=? where username=?;";
       db.query(quert,[name,email,imageErrors.fileNa,username],(err,result)=>{
           if(err===null)
           res.status(200).send({msg:"Sucessful"});
           else{
-              console.log(err);
+             // console.log(err);
            if(err.sqlMessage.includes("username")){
                //console.log("Hey I am Abid")
            res.status(400).send({username:err.sqlMessage});
@@ -102,13 +111,13 @@ app.put("/updateuser",checkLogin,async (req,res)=>{
   }
   else
   {
-      console.log(imageErrors);
+     // console.log(imageErrors);
       errors.imError=imageErrors.imageErrors;
       res.status(400).send(errors);
   }
      
   });
-app.get("/getuser",checkLogin,(req,res)=>{
+app.get("/getuser",checkLogin,cacheSet,(req,res)=>{
 const sql= "SELECT * FROM users WhERE username=?";
 const username=req.headers.username;
 //console.log(username);
@@ -117,8 +126,10 @@ const username=req.headers.username;
      {
          if(result.length===0)
          res.status(404).send({msg:"User not found"}); 
-         else
+         else{
+             cac.set(req.path,result);
          res.status(200).send(result);
+         }
      }
      else{
          if(err.sqlMessage!==null)
@@ -155,7 +166,7 @@ app.post("/validateuser",(req,res)=>{
         })
     }
 })
-app.get("/getPosts",(req,res)=>{
+app.get("/getPosts",cacheSet,(req,res)=>{
     const sql= "SELECT * FROM posts WhERE username=?";
    const username=req.headers.username;
     db.query(sql,[username],(err,result)=>{
@@ -163,10 +174,12 @@ app.get("/getPosts",(req,res)=>{
         {
             if(result.length===0)
             res.status(404).send({msg:"User not found"}); 
-            else
-
+            else{
+            cac.set(req.path,result.reverse());
             res.status(200).send(result.reverse());
         }
+    }
+
         else{ if(err.sqlMessage!==null)
             res.status(400).send(err.sqlMessage);
             else
@@ -174,11 +187,11 @@ app.get("/getPosts",(req,res)=>{
         }
     })
 });
-app.get("/showsinglepost",(req,res)=>{
-    console.log("Abid");
+app.get("/showsinglepost",cacheSet,(req,res)=>{
+    //console.log("Abid");
 
     const id= req.headers.id;
-    console.log(id);
+   // console.log(id);
     const sql= "SELECT * FROM posts WHERE id=?";
     db.query(sql,[id],(err,result)=>{
         if(err===null)
@@ -207,7 +220,7 @@ app.get("/getAllPosts",checkLogin,(req,res)=>{
         else{ if(err.sqlMessage!==null)
             res.status(400).send(err.sqlMessage);
             else
-            res.status(500).status("Internal Server Error");
+            res.status(500).send("Internal Server Error");
         }
 
     })
@@ -226,7 +239,7 @@ app.post("/adduser",async (req,res)=>{
         if(err===null)
         res.status(200).send({msg:"Register Successful"});
         else{
-            console.log(err);
+            //console.log(err);
          if(err.sqlMessage.includes("username")){
              //console.log("Hey I am Abid")
          res.status(400).send({username:err.sqlMessage});
@@ -241,7 +254,7 @@ app.post("/adduser",async (req,res)=>{
 }
 else
 {
-    console.log(imageErrors);
+    //console.log(imageErrors);
     errors.imError=imageErrors.imageErrors;
     res.status(400).send(errors);
 }
@@ -284,14 +297,17 @@ app.post ("/addfavLater",checkLogin,(req,res)=>{
 });
 
 app.get("/findPost",checkLogin,(req,res)=>{
-    console.log(req.body);
+   // console.log(req.body);
     const sql="SELECT * FROM posts WHERE id=?";
     db.query(sql,[req.headers.id],(err,result)=>{
         if(err===null&&result.length!==0)
         {
             if(result.length===0)
-            res.status(404).send({msg:"Post not found"}); 
+            res.status(404).send({msg:"Post not found"});
+            else{ 
+                cac.set(req.path,result);
            res.status(200).send(result);
+            }
         }
         else
         {
@@ -303,7 +319,7 @@ app.get("/findPost",checkLogin,(req,res)=>{
     })
 })
 app.post("/newpost",checkLogin,(req,res)=>{
-    console.log(req.body);
+   // console.log(req.body);
     let imageErrors;
     if(req.files!==null&&req.files!==undefined)
      imageErrors=imageUpload(req.files.file);
@@ -318,7 +334,7 @@ app.post("/newpost",checkLogin,(req,res)=>{
     const quert="INSERT INTO `newsapp`.`posts` (`title`, `desc`, `date`, `id`,`category`,`username`,`img`) VALUES (?,?,?,?,?,?,?);";
     db.query(quert,[title,desc,date.toLocaleString(),id,category,username,imageErrors.fileNa],(err,result)=>{
         if(err===null){
-            console.log("Abid");
+           // console.log("Abid");
         res.status(200).send({id});
         }
         else{
@@ -342,7 +358,7 @@ app.post("/login",async(req,res)=>{
     db.query(sql,[login],async (err,result)=>{
         if(err===null&&result.length>0)
         {
-            console.log(result);
+           // console.log(result);
            const pass=result[0].password;
            const isRightPassword=await bcrypt.compare(password,pass);
            if(isRightPassword){
@@ -350,7 +366,7 @@ app.post("/login",async(req,res)=>{
                    username:login,
                    name:result[0].name
                },process.env.JWT_SECRET)
-               console.log(token+"abid");
+              // console.log(token+"abid");
            res.status(200).send({token:token,img:result[0].img});
             }
            else
@@ -364,13 +380,13 @@ app.post("/login",async(req,res)=>{
 app.put("/updatePost",checkLogin,(req,res)=>{
     const {title,desc,category,userId}=req.body;
     let imageErrors={};
-    console.log(req.files);
+    //console.log(req.files);
     if(req.files!==null&&req.files!==undefined)
       imageErrors = imageUpload(req.files.file);
     else{
       //  console.log(req.body);
         const {fileNa}=req.body;
-         console.log(fileNa+"abid");
+       //  console.log(fileNa+"abid");
     imageErrors.fileNa = fileNa;
     imageErrors.imageErrors=false;
     }
@@ -420,8 +436,8 @@ res.status(200).send(req.username);
 app.delete("/deletepost",checkLogin,(req,res)=>{
     const sql= "DELETE FROM posts where id=?";
     db.query(sql,[req.headers.id],(err,result)=>{
-        console.log(req.headers.id);
-        console.log(result);
+      //  console.log(req.headers.id);
+        //console.log(result);
         if(err===null)
         {
             if(result.affectedRows===0)
@@ -441,7 +457,7 @@ app.delete("/deletepost",checkLogin,(req,res)=>{
 })
 
 const errorHandler = (err, req, res, next) => {
-    console.log(err);
+    //console.log(err);
     if (res.headersSent) {
       return next(err);
     }

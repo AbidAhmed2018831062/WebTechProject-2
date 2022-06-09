@@ -69,9 +69,9 @@ const update=()=>{
   data1.append("title",title);
   data1.append("desc",desc);
   data1.append("category",cat);
-  console.log(file===null);
-  if(file!==null){
-    console.log(file);
+  console.log(file?.name);
+  if(file?.name){
+    console.log("Hello");
   data1.append("file",file);
   }
   else
@@ -105,6 +105,7 @@ useEffect(()=>{
          setCat(data.data[0].category);
          setDes(data.data[0].desc);
          setTitle(data.data[0].title);
+         setFileName(data.data[0].img);
        }
      }).catch((err)=>{
        console.log(err);
