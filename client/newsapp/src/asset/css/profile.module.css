@@ -25,7 +25,21 @@
 }
 .flex2 {
   margin-top: 150px;
-  width: 50%;
+  width: 80%;
+}
+.log {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 20px;
+}
+.log:hover {
+  background-color: grey;
+  padding: 10px;
+  border-radius: 10px;
+}
+.log img {
+  margin-right: 10px;
 }
 .link {
   padding: 10px;
@@ -87,4 +101,63 @@
   font-weight: bolder;
   color: red;
   padding: 10px;
+}
+.delDiv1 {
+  border-radius: 10px;
+  color: red;
+  font-weight: bold;
+  position: fixed;
+  top: 35%;
+  bottom: 35%;
+  text-align: left;
+  background-color: grey;
+  z-index: 1000;
+  right: 38%;
+  width: 25%;
+  height: 220px;
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 10px;
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+}
+.delDiv1 p {
+  color: black;
+}
+.delDiv1 .styleP1 {
+  color: black;
+  text-align: left;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+.delDiv1 .button {
+  float: end;
+  width: 20%;
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border: 1px solid white;
+  margin-bottom: 0px;
+}
+.hr {
+  margin-bottom: 0px;
+}
+.delDiv1 .button1 {
+  margin-top: 0px;
+  margin-left: 48%;
+  width: 20%;
+  color: grey;
+  background-color: none;
+  border: none;
+  margin-bottom: 0px;
+  background: none;
+}
+.delDiv1 .styleP2 {
+  color: grey;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  margin-left: 15%;
+  margin-right: 15%;
 }
